@@ -1,0 +1,29 @@
+.wrap {
+  overflow: hidden;
+  width: 100%;
+  background: #0e2233;          /* replaces the red box */
+  border-radius: 18px;
+  padding: 12px 0;
+  box-shadow: 0 10px 30px rgba(0,0,0,.15);
+}
+
+.track {
+  display: inline-flex;
+  gap: 2rem;
+  white-space: nowrap;
+  will-change: transform;
+  animation: ticker 30s linear infinite;
+  padding-left: 100%;           /* allow smooth entry from the right */
+}
+
+.item {
+  color: #dbe6ff;
+  font-weight: 700;
+  letter-spacing: .3px;
+  opacity: .95;
+}
+
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

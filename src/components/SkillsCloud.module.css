@@ -1,0 +1,12 @@
+.cloud {
+  width: 100%;
+  height: 400px;
+  color: #2a8664;
+    font-size: 24px;
+  font-family: var(--font-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  background: #ab1414; color: #000;
+}

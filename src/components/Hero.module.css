@@ -1,0 +1,104 @@
+.hero {
+  --blur: 12px;
+  --card-bg: rgba(255, 255, 255, 0.88);
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  --radius: 18px;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  /* More generous padding but safe on small screens */
+  padding: clamp(16px, 5vw, 40px);
+  padding-inline: clamp(16px, 5vw, 40px);
+
+  display: flex;
+  justify-content: center;   /* <-- centers the card horizontally */
+  align-items: center;       /* centers vertically within the hero area */
+  overflow: hidden;
+
+  background:
+    radial-gradient(1200px 460px at 10% -10%, rgba(128, 0, 255, 0.20), transparent 55%),
+    radial-gradient(900px 420px at 90% 0%, rgba(255, 85, 170, 0.18), transparent 55%),
+    url('/src/assets/images/hero-bg.jpg') center/cover no-repeat;
+}
+
+/* Smaller, crisper card */
+.panel {
+  /* Make the card never exceed the page width */
+  width: 100%;
+  max-width: 920px;              /* smaller card like your screenshot */
+  margin: 0 auto;                /* keep centered inside hero */
+  box-sizing: border-box;
+
+  padding: clamp(18px, 3.5vw, 28px);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.82));
+  backdrop-filter: blur(var(--blur));
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  position: relative;
+}
+
+
+/* subtle inner gradient edge */
+.panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(145deg, rgba(147, 117, 255, 0.25), rgba(255, 131, 197, 0.2));
+  mix-blend-mode: multiply;
+  opacity: .55;
+}
+
+.title {
+  font-size: clamp(28px, 4.2vw, 42px);
+  line-height: 1.2;
+  margin: 0 0 8px;
+  color: #0f172a; /* slate-900 */
+  letter-spacing: .3px;
+}
+
+.line {
+  margin: 0 0 8px;
+  color: #263244; /* slate-ish */
+  font-size: clamp(14px, 1.9vw, 17px);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Same style for both buttons */
+.btn {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: transform .12s ease, box-shadow .12s ease, filter .2s ease;
+  white-space: nowrap;
+}
+
+.primary {
+  color: #fff;
+  background: linear-gradient(135deg, #5b7cff 0%, #6a4cff 40%, #b845ff 100%);
+  box-shadow: 0 8px 18px rgba(109, 76, 255, .35);
+}
+
+.primary:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow: 0 10px 22px rgba(109, 76, 255, .40);
+}
+
+.primary:active {
+  transform: translateY(0);
+  filter: brightness(.98);
+}

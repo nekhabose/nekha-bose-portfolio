@@ -1,0 +1,70 @@
+/* src/components/ProjectCard.module.css (add or tweak) */
+.card {
+  display:block;
+  text-decoration:none;
+  color: inherit;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm, 0 8px 24px rgba(14,16,30,.06));
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg, 0 14px 36px rgba(14,16,30,.12));
+}
+.thumbnail { display:block; width:100%; height:auto; }
+
+
+.linkWrap {
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.thumbWrap {
+  /* Keeps every thumbnail the same height & crop */
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  overflow: hidden;
+  background: #f3f5f8;
+}
+.thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.body {
+  padding: 18px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.title {
+  font-size: 1.15rem;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.desc {
+  color: #516173;
+  line-height: 1.55;
+}
+.media {
+  height: 230px;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.media > img,
+.thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

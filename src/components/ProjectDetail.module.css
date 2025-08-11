@@ -1,0 +1,131 @@
+/* --- ProjectDetail.module.css (fixed & polished) --- */
+
+.wrap {
+  --glass: linear-gradient(160deg, rgba(255,255,255,.75), rgba(255,255,255,.55));
+  --shadow: 0 10px 30px rgba(14,16,30,.08);
+}
+
+.notfound { padding: var(--spacing-xl) 0; }
+.back { color: var(--color-primary); text-decoration: none; }
+
+/* HERO */
+.hero {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  min-height: 38vh;
+  background-size: cover;
+  background-position: center;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: transform .6s ease, opacity .6s ease;
+}
+.reveal { transform: translateY(0); opacity: 1; }
+
+/* Make the overlay DARKER for better text contrast,
+   but set pointer-events:none so links are clickable */
+.hero::after {
+  content:'';
+  position: absolute; inset:0;
+  background:
+    radial-gradient(1200px 500px at 20% 0%, rgba(124,58,237,.35), transparent 60%),
+    radial-gradient(1000px 400px at 80% 100%, rgba(59,130,246,.35), transparent 60%),
+    rgba(16,18,27,.50);              /* darker -> better readability */
+  pointer-events: none;              /* <-- lets us click the GitHub button */
+}
+
+/* Put the content above the overlay and give it its own subtle glass card */
+.heroInner {
+  position: relative;
+  z-index: 1;
+  padding: clamp(1.2rem, 3vw, 2.4rem);
+  color: #fff;
+  display: inline-block;
+  background: linear-gradient(180deg, rgba(8,10,17,.55), rgba(8,10,17,.35));
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(5,8,15,.25);
+}
+
+.title {
+  margin: 0 0 .75rem 0;
+  font-size: clamp(1.6rem, 3.8vw, 2.4rem);
+  line-height: 1.15;
+  color: #fff;
+  text-shadow: 0 14px 42px rgba(0,0,0,.55), 0 2px 6px rgba(0,0,0,.85);
+}
+
+.chips {
+  display: flex; flex-wrap: wrap; gap: .5rem;
+  margin: .25rem 0 1rem;
+}
+
+/* Higher contrast chips */
+.chip {
+  background: rgba(10,12,23,.55);
+  border: 1px solid rgba(255,255,255,.28);
+  color: #fff;
+  padding: .35rem .6rem;
+  border-radius: 999px;
+  font-size: .85rem;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,.18);
+}
+
+/* Buttons */
+.cta { display: flex; gap: .6rem; }
+.btn {
+  display:inline-block; padding:.55rem .9rem;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
+  color: #fff; text-decoration:none; font-weight:700;
+  box-shadow: 0 8px 20px rgba(59,130,246,.35);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(59,130,246,.45); }
+
+/* STATS */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: .8rem;
+  margin: 1rem 0 1.25rem;
+}
+.stat {
+  text-align:center;
+  padding: .9rem .5rem;
+  border-radius: 14px;
+  background: var(--glass);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow);
+}
+.statVal { font-size: clamp(1.3rem, 2.8vw, 1.8rem); font-weight: 800; }
+.statLabel { opacity:.75; font-size:.9rem; }
+
+/* BODY */
+.body { display: grid; gap: 1rem; }
+
+.card {
+  padding: clamp(1rem, 2vw, 1.4rem);
+  background: var(--glass);
+  border: 1px solid rgba(20,20,35,.08);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  transform: translateY(8px);
+  opacity: 0;
+}
+.revealUp { animation: revealUp .6s ease forwards; }
+@keyframes revealUp {
+  from { transform: translateY(8px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+.card h3 { margin: 0 0 .5rem; }
+
+.bullets { margin:.25rem 0 0 1.1rem; }
+.bullets li { margin:.25rem 0; line-height: 1.6; }
+
+.footerCTA { margin-top:.5rem; }
+.backLink { color: var(--color-primary); text-decoration: none; }
+.backLink:hover { text-decoration: underline; }

@@ -1,0 +1,11 @@
+/* In About.module.css */
+.container {
+  position: relative;
+  background-color: var(--color-card-bg); /* Use the card background color */
+  border-radius: 15px;
+  padding: 73px;
+  margin-top: 5rem; /* Use a relative margin */
+  z-index: 0; /* Keep it on the base stacking level of the main content */
+  margin-left: 10%;
+  margin-right: 10%;
+}

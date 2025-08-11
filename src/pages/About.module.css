@@ -1,0 +1,35 @@
+.wrap {
+  padding: var(--spacing-lg, 2rem) 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.photo {
+  width: 100%;
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 15px 40px rgba(0,0,0,.18);
+}
+
+.content h2 {
+  margin: 0 0 .6rem;
+}
+
+.resumeBtn {
+  display: inline-block;
+  margin-top: 1rem;
+  background: var(--color-primary, #5b5bf7);
+  color: #fff;
+  padding: .85rem 1.25rem;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.subTitle {
+  margin: 2rem 0 .75rem;
+}

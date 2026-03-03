@@ -1,34 +1,75 @@
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--spacing-md) var(--spacing-lg);
-  background-color: white;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem clamp(1rem, 4vw, 2.5rem);
+  background: rgba(248, 250, 252, 0.9);
+  border-bottom: 1px solid var(--color-border);
+  backdrop-filter: blur(16px);
 }
 
 .logo {
+  border: none;
+  background: transparent;
+  color: var(--color-text);
   font-family: var(--font-primary);
-  font-size: 1.5rem;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.navLinks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem;
+}
+
+.navLinks button,
+.resumeLink {
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
   font-weight: 600;
-  color: var(--color-primary);
+  padding: 0.65rem 0.9rem;
+  border-radius: 999px;
+  transition: color 0.2s ease, background 0.2s ease;
 }
 
-.navLinks a {
-  margin-left: var(--spacing-lg);
-  font-weight: 500;
-  transition: color var(--transition);
-}
-
-.navLinks a:hover {
-  color: var(--color-primary);
+.navLinks button:hover,
+.resumeLink:hover {
+  color: var(--color-text);
+  background: rgba(15, 23, 42, 0.06);
 }
 
 .active {
-  color: var(--color-primary);
-  border-bottom: 2px solid var(--color-primary);
-  padding-bottom: 2px;
+  color: var(--color-text);
+  background: rgba(15, 23, 42, 0.08);
+}
+
+.resumeLink {
+  background: var(--color-text);
+  color: #fff;
+}
+
+.resumeLink:hover {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+@media (max-width: 840px) {
+  .navbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .navLinks {
+    justify-content: flex-start;
+  }
 }

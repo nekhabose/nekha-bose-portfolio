@@ -1,8 +1,9 @@
 // src/components/ContactForm.jsx
 import React, { useState } from 'react';
 import styles from './ContactForm.module.css';
-import { FaEnvelope, FaPhone, FaLinkedin } from 'react-icons/fa';
+import { FaEnvelope, FaGithub, FaLinkedin, FaMapMarkerAlt, FaPhone } from 'react-icons/fa';
 import emailjs from 'emailjs-com';
+import { profile } from '../utils';
 
 const SERVICE_ID  = 'service_c223ey7';
 const TEMPLATE_ID = 'template_mkh5c8j';
@@ -13,9 +14,7 @@ const ContactForm = () => {
   const [status, setStatus] = useState(null);
 
   const handleChange = (e) => {
-    console.log('Input changed:', e.target.name, e.target.value);
     setForm({ ...form, [e.target.name]: e.target.value });
-    console.log('Updated form state:', form);
   };
 
   const handleSubmit = (e) => {
@@ -34,7 +33,7 @@ const ContactForm = () => {
         USER_ID
       )
       .then(
-        (data) => {
+        () => {
           setStatus('success');
           setForm({ name: '', email: '', message: '' });
         },
@@ -48,24 +47,41 @@ const ContactForm = () => {
   return (
     <section className={styles.contact}>
       <div className={styles.info}>
-        <div>
+        <div className={styles.intro}>
+          <p className={styles.kicker}>Contact</p>
+          <h3>Open to senior engineering and platform roles.</h3>
+          <p>
+            Reach out for full-stack, AI platform, cloud architecture, or technical leadership conversations.
+          </p>
+        </div>
+
+        <div className={styles.infoRow}>
           <FaEnvelope />{' '}
-          <a href="mailto:nekhabose1998@gmail.com">
-            nekhabose1998@gmail.com
+          <a href={`mailto:${profile.email}`}>
+            {profile.email}
           </a>
         </div>
-        <div>
-          <FaPhone /> <a href="tel:+13128749702">+1 312-874-9702</a>
+        <div className={styles.infoRow}>
+          <FaPhone /> <a href={`tel:${profile.phone}`}>{profile.phone}</a>
         </div>
-        <div>
+        <div className={styles.infoRow}>
           <FaLinkedin />{' '}
           <a
-            href="https://linkedin.com/in/nekha-bose"
+            href={profile.linkedin}
             target="_blank"
             rel="noreferrer"
           >
             linkedin.com/in/nekha-bose
           </a>
+        </div>
+        <div className={styles.infoRow}>
+          <FaGithub />{' '}
+          <a href={profile.github} target="_blank" rel="noreferrer">
+            github.com/nekhabose
+          </a>
+        </div>
+        <div className={styles.infoRow}>
+          <FaMapMarkerAlt /> <span>{profile.location}</span>
         </div>
       </div>
 
@@ -73,6 +89,7 @@ const ContactForm = () => {
         <input
           type="text"
           name="name"
+          aria-label="Your name"
           placeholder="Your Name"
           value={form.name}
           onChange={handleChange}
@@ -81,6 +98,7 @@ const ContactForm = () => {
         <input
           type="email"
           name="email"
+          aria-label="Your email"
           placeholder="Your Email"
           value={form.email}
           onChange={handleChange}
@@ -88,13 +106,14 @@ const ContactForm = () => {
         />
         <textarea
           name="message"
+          aria-label="Your message"
           rows="5"
           placeholder="Your Message"
           value={form.message}
           onChange={handleChange}
           required
         />
-        <button type="submit" disabled={status === 'sending'}>
+        <button type="submit" className="btn btnPrimary" disabled={status === 'sending'}>
           {status === 'sending'
             ? 'Sending...'
             : status === 'success'

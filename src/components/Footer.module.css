@@ -1,0 +1,29 @@
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem 2.5rem;
+  color: var(--color-text-muted);
+}
+
+.footer strong {
+  display: block;
+  color: var(--color-text);
+  margin-bottom: 0.3rem;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.links a,
+.links span {
+  font-size: 0.92rem;
+}

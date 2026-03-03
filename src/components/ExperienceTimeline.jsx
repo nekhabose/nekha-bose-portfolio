@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import styles from './ExperienceTimeline.module.css';
 import { experiences } from '../utils';
-import { FaBuilding, FaMapMarkerAlt, FaCalendarAlt, FaChevronDown } from 'react-icons/fa';
+import { FaBuilding, FaCalendarAlt, FaChevronDown, FaMapMarkerAlt } from 'react-icons/fa';
 
 const ExperienceTimeline = () => {
   const [openId, setOpenId] = useState(experiences[0]?.id || experiences[0]?.company);
 
   return (
     <section className={styles.wrap}>
-      <h2 className={styles.title}>Experience</h2>
-
       <div className={styles.timeline}>
         {experiences.map((e) => {
           const id = e.id || e.company;
@@ -20,20 +18,31 @@ const ExperienceTimeline = () => {
                 <span className={styles.dot}/>
               </div>
 
-              <button
-                className={styles.header}
-                onClick={() => setOpenId(isOpen ? null : id)}
-                aria-expanded={isOpen}
-              >
-                <div className={styles.headL}>
+              <button className={styles.header} onClick={() => setOpenId(isOpen ? null : id)} aria-expanded={isOpen}>
+                <div className={styles.titleRow}>
                   <h3 className={styles.role}>{e.role}</h3>
-                  <div className={styles.meta}>
-                    <span className={styles.company}><FaBuilding/> {e.company}</span>
-                    <span><FaMapMarkerAlt/> {e.location}</span>
-                    <span><FaCalendarAlt/> {e.period}</span>
+                  <div className={styles.metricRow}>
+                    {e.metrics.map((metric) => (
+                      <span key={metric} className={styles.metricChip}>
+                        {metric}
+                      </span>
+                    ))}
                   </div>
                 </div>
-                <FaChevronDown className={isOpen ? styles.chevOpen : styles.chev}/>
+                <div className={styles.headerContent}>
+                  <div className={styles.meta}>
+                    <span className={styles.company}>
+                      <FaBuilding /> {e.company}
+                    </span>
+                    <span>
+                      <FaMapMarkerAlt /> {e.location}
+                    </span>
+                    <span>
+                      <FaCalendarAlt /> {e.period}
+                    </span>
+                  </div>
+                  <FaChevronDown className={isOpen ? styles.chevOpen : styles.chev} />
+                </div>
               </button>
 
               <div className={isOpen ? styles.bodyOpen : styles.body}>

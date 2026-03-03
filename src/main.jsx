@@ -5,9 +5,15 @@ import App from './App';
 import './index.css';
 import './vars.css';
 
+const basename = (() => {
+  const base = import.meta.env.BASE_URL || '/';
+  if (base === '/') return '/';
+  return base.endsWith('/') ? base.slice(0, -1) : base;
+})();
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename="/nekha-bose-portfolio">
+    <BrowserRouter basename={basename}>
       <App />
     </BrowserRouter>
   </React.StrictMode>

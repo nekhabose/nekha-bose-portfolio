@@ -1,15 +1,25 @@
 :root {
-  --font-primary: 'Poppins', sans-serif;
-  --font-secondary: 'Open Sans', sans-serif;
-  --color-primary: #4f46e5;
-  --color-secondary: #ec4899;
-  --color-accent: #10b981;
-  --color-bg: #f9fafb;
-  --color-text: #1f2937;
+  --font-primary: 'Manrope', sans-serif;
+  --font-secondary: 'Source Sans 3', sans-serif;
+
+  --color-primary: #1d4ed8;
+  --color-secondary: #0f172a;
+  --color-bg: #eef2f7;
+  --color-surface: #ffffff;
+  --color-panel: #f8fafc;
+  --color-border: rgba(15, 23, 42, 0.08);
+  --color-text: #0f172a;
+  --color-text-soft: #1e293b;
+  --color-text-muted: #475569;
+
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
   --spacing-lg: 2rem;
-  --border-radius: 0.5rem;
+  --spacing-xl: 3rem;
+
+  --border-radius: 0.75rem;
   --max-width: 1200px;
-  --transition: 0.3s ease;
+  --transition: 0.25s ease;
+  --shadow-soft: 0 24px 56px rgba(15, 23, 42, 0.1);
+  --shadow-card: 0 14px 32px rgba(15, 23, 42, 0.08);
 }

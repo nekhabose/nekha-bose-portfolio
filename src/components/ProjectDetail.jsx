@@ -1,158 +1,144 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import styles from './ProjectDetail.module.css';
-import { useParams, Link } from 'react-router-dom';
 import { projects } from '../utils';
 
-const Counter = ({ to = 0, duration = 800 }) => {
-  const [n, setN] = useState(0);
-  useEffect(() => {
-    const start = performance.now();
-    let raf;
-    const tick = (t) => {
-      const p = Math.min(1, (t - start) / duration);
-      setN(Math.round(p * to));
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [to, duration]);
-  return <span>{n}</span>;
-};
+const DetailSection = ({ title, children }) => (
+  <section className={styles.section}>
+    <h2>{title}</h2>
+    {children}
+  </section>
+);
 
-const useReveal = () => {
-  const ref = useRef(null);
-  const [show, setShow] = useState(false);
-  useEffect(() => {
-    const io = new IntersectionObserver(
-      (e) => e.forEach((v) => v.isIntersecting && setShow(true)),
-      { threshold: 0.15 }
-    );
-    if (ref.current) io.observe(ref.current);
-    return () => io.disconnect();
-  }, []);
-  return [ref, show];
-};
-
-export default function ProjectDetail() {
+const ProjectDetail = () => {
   const { id } = useParams();
-  const project = useMemo(() => projects.find((p) => p.id === id), [id]);
-
-  const [heroRef, heroShow] = useReveal();
-  const [probRef, probShow] = useReveal();
-  const [appRef, appShow] = useReveal();
-  const [hiRef, hiShow] = useReveal();
+  const project = useMemo(() => projects.find((item) => item.id === id), [id]);
 
   if (!project) {
     return (
-      <section className={styles.notfound}>
-        <h2>Project not found.</h2>
-        <Link className={styles.back} to="/portfolio">← Back to Projects</Link>
+      <section className={styles.notFound}>
+        <h1>Project not found</h1>
+        <Link to="/#projects" className={styles.backLink}>
+          Back to projects
+        </Link>
       </section>
     );
   }
 
   return (
-    <section className={styles.wrap}>
-      {/* HERO */}
-      <div
-        ref={heroRef}
-        className={`${styles.hero} ${heroShow ? styles.reveal : ''}`}
-        style={{ backgroundImage: `url(${project.hero || project.thumb})` }}
-      >
-        <div className={styles.heroInner}>
-          <h1 className={styles.title}>{project.title}</h1>
+    <article className={styles.wrap}>
+      <header className={styles.hero}>
+        <div className={styles.heroCopy}>
+          <p className={styles.kicker}>{project.category}</p>
+          <h1>{project.title}</h1>
+          <p className={styles.summary}>{project.short}</p>
 
-          {project.tech?.length ? (
-            <div className={styles.chips}>
-              {project.tech.map((t, i) => (
-                <span className={styles.chip} key={i}>
-                  {t}
-                </span>
-              ))}
-            </div>
-          ) : null}
+          <div className={styles.metricRow}>
+            {project.metrics?.map((metric) => (
+              <span key={metric} className={styles.metricChip}>
+                {metric}
+              </span>
+            ))}
+          </div>
 
           {project.links?.length ? (
-            <div className={styles.cta}>
-              {project.links.map((l, i) => (
-                <a
-                  key={i}
-                  href={l.href}
-                  className={styles.btn}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {l.label}
+            <div className={styles.actions}>
+              {project.links.map((link) => (
+                <a key={link.href} href={link.href} target="_blank" rel="noreferrer" className="btn btnPrimary">
+                  {link.label}
                 </a>
               ))}
             </div>
           ) : null}
         </div>
-      </div>
 
-      {/* STATS */}
-      {project.stats?.length ? (
-        <div className={styles.stats}>
-          {project.stats.map((s, i) => (
-            <div className={styles.stat} key={i}>
-              <div className={styles.statVal}>
-                <Counter to={Number(s.value) || 0} />
-              </div>
-              <div className={styles.statLabel}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-      ) : null}
+        <img className={styles.heroImage} src={project.hero || project.thumb} alt={project.title} />
+      </header>
 
-      {/* BODY */}
-      <div className={styles.body}>
-        {project.problem && (
-          <section
-            ref={probRef}
-            className={`${styles.card} ${probShow ? styles.revealUp : ''}`}
-          >
-            <h3>Problem</h3>
-            <p>{project.problem}</p>
-          </section>
-        )}
+      <div className={styles.detailGrid}>
+        <DetailSection title="Problem">
+          <p>{project.problem}</p>
+        </DetailSection>
 
-        {project.approach && (
-          <section
-            ref={appRef}
-            className={`${styles.card} ${appShow ? styles.revealUp : ''}`}
-          >
-            <h3>Solution & Approach</h3>
-            <p>{project.approach}</p>
-          </section>
-        )}
+        <DetailSection title="Users">
+          <p>{project.users}</p>
+        </DetailSection>
 
-        {project.highlights?.length ? (
-          <section
-            ref={hiRef}
-            className={`${styles.card} ${hiShow ? styles.revealUp : ''}`}
-          >
-            <h3>Highlights</h3>
-            <ul className={styles.bullets}>
-              {project.highlights.map((h, i) => (
-                <li key={i}>{h}</li>
+        {project.constraints?.length ? (
+          <DetailSection title="Constraints">
+            <ul className={styles.list}>
+              {project.constraints.map((item) => (
+                <li key={item}>{item}</li>
               ))}
             </ul>
-          </section>
+          </DetailSection>
         ) : null}
 
-        {project.impact && (
-          <section className={`${styles.card} ${styles.revealUp}`}>
-            <h3>Impact</h3>
-            <p>{project.impact}</p>
-          </section>
-        )}
+        {project.approach?.length ? (
+          <DetailSection title="Approach">
+            <ul className={styles.list}>
+              {project.approach.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </DetailSection>
+        ) : null}
 
-        <div className={styles.footerCTA}>
-          <Link className={styles.backLink} to="/portfolio">
-            ← Back to Projects
-          </Link>
-        </div>
+        {project.architectureFlow?.length ? (
+          <DetailSection title="Architecture">
+            <div className={styles.architecture}>
+              {project.architectureFlow.map((step, index) => (
+                <React.Fragment key={step}>
+                  <div className={styles.archNode}>{step}</div>
+                  {index < project.architectureFlow.length - 1 ? (
+                    <span className={styles.archArrow}>{'->'}</span>
+                  ) : null}
+                </React.Fragment>
+              ))}
+            </div>
+          </DetailSection>
+        ) : null}
+
+        {project.tech?.length ? (
+          <DetailSection title="Tech stack">
+            <div className={styles.techRow}>
+              {project.tech.map((item) => (
+                <span key={item} className={styles.techChip}>
+                  {item}
+                </span>
+              ))}
+            </div>
+          </DetailSection>
+        ) : null}
+
+        {project.challenges?.length ? (
+          <DetailSection title="Challenges">
+            <ul className={styles.list}>
+              {project.challenges.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </DetailSection>
+        ) : null}
+
+        {project.results?.length ? (
+          <DetailSection title={project.resultsTitle || 'Results'}>
+            <ul className={styles.list}>
+              {project.results.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </DetailSection>
+        ) : null}
       </div>
-    </section>
+
+      <div className={styles.footer}>
+        <Link to="/#projects" className={styles.backLink}>
+          Back to projects
+        </Link>
+      </div>
+    </article>
   );
-}
+};
+
+export default ProjectDetail;

@@ -1,12 +1,74 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Nekha Bose Portfolio
 
-Currently, two official plugins are available:
+Personal portfolio site built with React and Vite.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Run Locally
 
-## Expanding the ESLint configuration
+Prerequisites:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Node.js 18+ recommended
+- npm
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the Vite dev server:
+
+```bash
+npm run dev
+```
+
+Vite will print a local URL, usually:
+
+```bash
+http://localhost:5173/
+```
+
+## Available Scripts
+
+```bash
+# Start local development server
+npm run dev
+
+# Build production files into dist/
+npm run build
+
+# Preview the production build locally
+npm run preview
+
+# Publish dist/ to GitHub Pages
+npm run deploy
+```
+
+## Build And Deploy Notes
+
+- `npm run build` creates the production bundle in `dist/`.
+- `npm run preview` serves the built `dist/` output locally so you can verify the production build.
+- The app uses a Vite `base` path of `/nekha-bose-portfolio/` in production, which matches GitHub Pages project-site deployment.
+- `npm run deploy` runs the `predeploy` script first, then publishes `dist/` with `gh-pages`.
+
+## Project Structure
+
+```text
+src/
+├── assets/              # Images used across the site
+├── components/          # Shared UI components
+├── pages/               # Page-level sections
+├── utils.js             # Project and experience data
+├── vars.css             # Design tokens
+├── index.css            # Global styles
+└── main.jsx             # App entry point
+public/
+└── nekhaBoseResume.pdf  # Resume file served statically
+```
+
+## Customization
+
+- Update project and experience content in `src/utils.js`.
+- Replace resume content by updating `public/nekhaBoseResume.pdf`.
+- Adjust the contact form EmailJS configuration in `src/components/ContactForm.jsx`.
+- The current contact form uses hardcoded EmailJS IDs. If you fork this project, replace them with your own EmailJS service, template, and public key.

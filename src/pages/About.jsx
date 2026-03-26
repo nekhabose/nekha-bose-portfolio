@@ -55,8 +55,6 @@ export default function About() {
           <Reveal delay={520}>
             <a
               href={resumeUrl}
-              target="_blank"
-              rel="noreferrer"
               className={`btn btnPrimary ${styles.resumeBtn}`}
               download="Nekha_Bose_Resume.pdf"
             >

@@ -82,8 +82,6 @@ const Navbar = () => {
           <a
             href={`${import.meta.env.BASE_URL}${profile.resumeFile}`}
             className={styles.resumeLink}
-            target="_blank"
-            rel="noreferrer"
             download="Nekha_Bose_Resume.pdf"
           >
             Resume

@@ -47,8 +47,6 @@ export default function Hero() {
               </button>
               <a
                 href={resumeUrl}
-                target="_blank"
-                rel="noreferrer"
                 className="btn btnSecondary"
                 download="Nekha_Bose_Resume.pdf"
               >

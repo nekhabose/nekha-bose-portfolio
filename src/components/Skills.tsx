@@ -1,69 +1,112 @@
 import React, { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import { gsap } from '../lib/gsap';
 import { skillGroups } from '../utils';
-import { useScrollReveal } from '../hooks/useScrollReveal';
 
 const Skills: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  useScrollReveal(containerRef as React.RefObject<HTMLElement>, '[data-skills-card]', { stagger: 0.07, y: 30 });
+
+  useGSAP(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // Each column reveals independently
+    gsap.fromTo('[data-skill-col]',
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'expo.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 78%',
+        },
+      }
+    );
+
+    // Each item in the columns staggers in after the column
+    gsap.fromTo('[data-skill-item]',
+      { opacity: 0, x: -10 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.5,
+        stagger: 0.025,
+        ease: 'expo.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 75%',
+        },
+      }
+    );
+  }, { scope: containerRef, dependencies: [] });
 
   return (
     <div
       ref={containerRef}
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-        gap: '1.125rem',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 180px), 1fr))',
+        gap: '0',
+        borderTop: '1px solid rgba(255,255,255,0.07)',
       }}
     >
-      {skillGroups.map((group) => (
-        <article
+      {skillGroups.map((group, colIndex) => (
+        <div
           key={group.title}
-          data-skills-card
-          className="card"
+          data-skill-col
           style={{
-            padding: '1.5rem',
+            padding: 'clamp(1.5rem, 3vw, 2rem) clamp(1rem, 2vw, 1.5rem)',
+            borderRight: '1px solid rgba(255,255,255,0.07)',
+            borderBottom: '1px solid rgba(255,255,255,0.07)',
             opacity: 0,
-            cursor: 'default',
-            transition: 'border-color 0.3s, transform 0.3s',
-          }}
-          onMouseEnter={(e) => {
-            const el = e.currentTarget as HTMLElement;
-            el.style.borderColor = 'rgba(59,130,246,0.2)';
-            el.style.transform = 'translateY(-3px)';
-            const title = el.querySelector('[data-category-title]') as HTMLElement;
-            if (title) title.style.color = 'var(--color-accent)';
-          }}
-          onMouseLeave={(e) => {
-            const el = e.currentTarget as HTMLElement;
-            el.style.borderColor = 'rgba(255,255,255,0.06)';
-            el.style.transform = 'translateY(0)';
-            const title = el.querySelector('[data-category-title]') as HTMLElement;
-            if (title) title.style.color = 'var(--color-text-muted)';
           }}
         >
-          <h3
-            data-category-title
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '0.7rem',
-              fontWeight: 700,
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-              color: 'var(--color-text-muted)',
-              marginBottom: '1rem',
-              transition: 'color 0.2s',
-            }}
-          >
+          {/* Category label */}
+          <p style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: '0.68rem',
+            fontWeight: 700,
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            color: 'var(--color-accent)',
+            marginBottom: '1.25rem',
+          }}>
             {group.title}
-          </h3>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+          </p>
+
+          {/* Items as plain text list */}
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
             {group.items.map((item) => (
-              <span key={item} className="tag">
+              <li
+                key={item}
+                data-skill-item
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '0.9rem',
+                  fontWeight: 500,
+                  color: 'var(--color-text-secondary)',
+                  transition: 'color 0.15s, transform 0.15s',
+                  cursor: 'default',
+                  opacity: 0,
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.color = 'var(--color-text-primary)';
+                  el.style.transform = 'translateX(4px)';
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.color = 'var(--color-text-secondary)';
+                  el.style.transform = 'translateX(0)';
+                }}
+              >
                 {item}
-              </span>
+              </li>
             ))}
-          </div>
-        </article>
+          </ul>
+        </div>
       ))}
     </div>
   );

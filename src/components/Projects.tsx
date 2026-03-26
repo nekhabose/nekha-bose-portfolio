@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
+import { useGSAP } from '@gsap/react';
+import { gsap } from '../lib/gsap';
 import { projects } from '../utils';
-import { useScrollReveal } from '../hooks/useScrollReveal';
 import ProjectModal from './ProjectModal';
 import type { Project } from '../types';
 
@@ -8,181 +9,56 @@ const Projects: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
 
-  useScrollReveal(containerRef as React.RefObject<HTMLElement>, '[data-project-card]', { stagger: 0.1, y: 50 });
+  useGSAP(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    projects.forEach((_, i) => {
+      const card   = document.querySelector(`[data-project-index="${i}"]`);
+      const reveal = document.querySelector(`[data-img-curtain="${i}"]`);
+      const img    = document.querySelector(`[data-img-inner="${i}"]`);
+      const num    = document.querySelector(`[data-project-num="${i}"]`);
+      const body   = document.querySelector(`[data-project-body="${i}"]`);
+      if (!card || !reveal || !img) return;
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 82%',
+          toggleActions: 'play none none none',
+        },
+        defaults: { ease: 'expo.out' },
+      });
+
+      // Number fades in first
+      if (num) tl.fromTo(num, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.5 }, 0);
+
+      // Body slides up
+      if (body) tl.fromTo(body, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7 }, 0.1);
+
+      // Image: curtain slides from left to right, revealing image beneath
+      tl.fromTo(img,
+        { scale: 1.12 },
+        { scale: 1, duration: 1.1, ease: 'expo.out' },
+        0
+      );
+      tl.fromTo(reveal,
+        { scaleX: 1, transformOrigin: 'left center' },
+        { scaleX: 0, transformOrigin: 'right center', duration: 0.9, ease: 'expo.inOut' },
+        0.05
+      );
+    });
+  }, { scope: containerRef, dependencies: [] });
 
   return (
     <>
-      <div
-        ref={containerRef}
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 320px), 1fr))',
-          gap: '1.375rem',
-        }}
-      >
-        {projects.map((project) => (
-          <article
+      <div ref={containerRef}>
+        {projects.map((project, i) => (
+          <ProjectRow
             key={project.id}
-            data-project-card
+            project={project}
+            index={i}
             onClick={() => setActiveProject(project)}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              borderRadius: '1.125rem',
-              overflow: 'hidden',
-              backgroundColor: 'var(--color-surface)',
-              border: '1px solid rgba(255,255,255,0.06)',
-              boxShadow: 'var(--shadow-card)',
-              cursor: 'pointer',
-              opacity: 0,
-              transition: 'border-color 0.3s, box-shadow 0.3s, transform 0.3s',
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget as HTMLElement;
-              el.style.borderColor = 'rgba(59,130,246,0.2)';
-              el.style.boxShadow = 'var(--shadow-card-hover)';
-              el.style.transform = 'translateY(-4px)';
-              const img = el.querySelector('[data-card-img]') as HTMLElement;
-              if (img) img.style.transform = 'scale(1.06)';
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget as HTMLElement;
-              el.style.borderColor = 'rgba(255,255,255,0.06)';
-              el.style.boxShadow = 'var(--shadow-card)';
-              el.style.transform = 'translateY(0)';
-              const img = el.querySelector('[data-card-img]') as HTMLElement;
-              if (img) img.style.transform = 'scale(1)';
-            }}
-          >
-            {/* Thumbnail */}
-            <div style={{ position: 'relative', aspectRatio: '16/9', overflow: 'hidden', flexShrink: 0 }}>
-              <img
-                data-card-img
-                src={project.thumb}
-                alt={project.title}
-                loading="lazy"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  display: 'block',
-                  transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-                }}
-              />
-              {/* Gradient overlay on thumb */}
-              <div style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(to top, rgba(15,23,42,0.6) 0%, transparent 50%)',
-                pointerEvents: 'none',
-              }} />
-              {/* Category badge */}
-              <div style={{ position: 'absolute', top: '0.75rem', left: '0.75rem' }}>
-                <span style={{
-                  padding: '0.3rem 0.7rem',
-                  borderRadius: '9999px',
-                  fontSize: '0.68rem',
-                  fontFamily: 'var(--font-display)',
-                  fontWeight: 700,
-                  letterSpacing: '0.06em',
-                  backgroundColor: 'rgba(8,12,20,0.75)',
-                  backdropFilter: 'blur(8px)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  color: 'var(--color-text-secondary)',
-                }}>
-                  {project.category}
-                </span>
-              </div>
-            </div>
-
-            {/* Body */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              flex: 1,
-              padding: '1.375rem',
-              gap: '0.75rem',
-            }}>
-              <h3 style={{
-                fontFamily: 'var(--font-display)',
-                fontWeight: 700,
-                fontSize: '1.05rem',
-                color: 'var(--color-text-primary)',
-                lineHeight: 1.3,
-              }}>
-                {project.title}
-              </h3>
-              <p style={{
-                fontSize: '0.875rem',
-                color: 'var(--color-text-secondary)',
-                lineHeight: 1.65,
-                flex: 1,
-              }}>
-                {project.short}
-              </p>
-
-              {/* Tech pills */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
-                {project.tech.slice(0, 5).map((t) => (
-                  <span key={t} className="tag" style={{ fontSize: '0.7rem', padding: '0.25rem 0.6rem' }}>
-                    {t}
-                  </span>
-                ))}
-                {project.tech.length > 5 && (
-                  <span style={{
-                    fontSize: '0.7rem',
-                    padding: '0.25rem 0.6rem',
-                    color: 'var(--color-text-muted)',
-                    fontFamily: 'var(--font-display)',
-                    fontWeight: 600,
-                  }}>
-                    +{project.tech.length - 5} more
-                  </span>
-                )}
-              </div>
-
-              {/* Links or indicator */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.25rem' }}>
-                {project.links?.length ? (
-                  <div style={{ display: 'flex', gap: '0.875rem' }}>
-                    {project.links.map((link) => (
-                      <a
-                        key={link.href}
-                        href={link.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        style={{
-                          fontSize: '0.8rem',
-                          fontFamily: 'var(--font-display)',
-                          fontWeight: 700,
-                          color: 'var(--color-accent)',
-                          transition: 'color 0.15s',
-                        }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-text-primary)')}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-accent)')}
-                      >
-                        {link.label} ↗
-                      </a>
-                    ))}
-                  </div>
-                ) : (
-                  <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
-                    Private / enterprise project
-                  </span>
-                )}
-                <span style={{
-                  fontSize: '0.75rem',
-                  color: 'var(--color-text-muted)',
-                  fontFamily: 'var(--font-display)',
-                  fontWeight: 600,
-                  transition: 'color 0.2s',
-                }}>
-                  View details →
-                </span>
-              </div>
-            </div>
-          </article>
+          />
         ))}
       </div>
 
@@ -190,6 +66,202 @@ const Projects: React.FC = () => {
         <ProjectModal project={activeProject} onClose={() => setActiveProject(null)} />
       )}
     </>
+  );
+};
+
+interface RowProps {
+  project: Project;
+  index: number;
+  onClick: () => void;
+}
+
+const ProjectRow: React.FC<RowProps> = ({ project, index, onClick }) => {
+  const num = String(index + 1).padStart(2, '0');
+  const imgRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseEnter = () => {
+    const img = imgRef.current?.querySelector('[data-img-inner]') as HTMLElement | null;
+    if (img) gsap.to(img, { scale: 1.06, duration: 0.6, ease: 'expo.out' });
+  };
+  const handleMouseLeave = () => {
+    const img = imgRef.current?.querySelector('[data-img-inner]') as HTMLElement | null;
+    if (img) gsap.to(img, { scale: 1, duration: 0.6, ease: 'expo.out' });
+  };
+
+  return (
+    <article
+      data-project-index={index}
+      onClick={onClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '3.5rem 1fr clamp(220px, 36%, 420px)',
+        gap: 'clamp(1.25rem, 3vw, 2.5rem)',
+        alignItems: 'center',
+        paddingTop: 'clamp(2rem, 4vw, 2.75rem)',
+        paddingBottom: 'clamp(2rem, 4vw, 2.75rem)',
+        borderTop: '1px solid rgba(255,255,255,0.07)',
+        cursor: 'pointer',
+        position: 'relative',
+      }}
+      className="project-row"
+    >
+      {/* Number */}
+      <span
+        data-project-num={index}
+        style={{
+          fontFamily: 'var(--font-display)',
+          fontWeight: 800,
+          fontSize: '0.8rem',
+          letterSpacing: '0.1em',
+          color: 'var(--color-text-muted)',
+          alignSelf: 'flex-start',
+          paddingTop: '0.2rem',
+          opacity: 0,
+        }}
+      >
+        {num}
+      </span>
+
+      {/* Content */}
+      <div data-project-body={index} style={{ opacity: 0 }}>
+        <p style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '0.68rem',
+          fontWeight: 700,
+          letterSpacing: '0.18em',
+          textTransform: 'uppercase',
+          color: 'var(--color-accent)',
+          marginBottom: '0.5rem',
+        }}>
+          {project.category}
+        </p>
+
+        <h3 style={{
+          fontFamily: 'var(--font-display)',
+          fontWeight: 800,
+          fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
+          color: 'var(--color-text-primary)',
+          lineHeight: 1.2,
+          marginBottom: '0.75rem',
+          transition: 'color 0.2s',
+        }}
+          className="project-title"
+        >
+          {project.title}
+        </h3>
+
+        <p style={{
+          fontSize: '0.9rem',
+          color: 'var(--color-text-secondary)',
+          lineHeight: 1.7,
+          marginBottom: '1.25rem',
+          maxWidth: '52ch',
+        }}>
+          {project.short}
+        </p>
+
+        {/* Tech */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1.25rem' }}>
+          {project.tech.slice(0, 5).map((t) => (
+            <span key={t} className="tag" style={{ fontSize: '0.7rem', padding: '0.22rem 0.6rem' }}>{t}</span>
+          ))}
+          {project.tech.length > 5 && (
+            <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', fontFamily: 'var(--font-display)', fontWeight: 600, padding: '0.22rem 0.4rem' }}>
+              +{project.tech.length - 5} more
+            </span>
+          )}
+        </div>
+
+        {/* Action row */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+          <span style={{
+            fontSize: '0.8rem',
+            fontFamily: 'var(--font-display)',
+            fontWeight: 700,
+            color: 'var(--color-text-muted)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+            transition: 'color 0.2s',
+          }}
+            className="view-details"
+          >
+            View details
+            <span style={{ fontSize: '1rem', transition: 'transform 0.2s' }} className="arrow-icon">→</span>
+          </span>
+
+          {project.links?.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                fontSize: '0.8rem',
+                fontFamily: 'var(--font-display)',
+                fontWeight: 700,
+                color: 'var(--color-accent)',
+                transition: 'color 0.2s',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-text-primary)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-accent)')}
+            >
+              {link.label} ↗
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Image with curtain reveal */}
+      <div
+        ref={imgRef}
+        style={{
+          position: 'relative',
+          borderRadius: '0.875rem',
+          overflow: 'hidden',
+          aspectRatio: '4/3',
+          flexShrink: 0,
+        }}
+      >
+        <img
+          data-img-inner={index}
+          src={project.thumb}
+          alt={project.title}
+          loading="lazy"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            display: 'block',
+            transform: 'scale(1.12)',
+          }}
+        />
+        {/* Dark gradient on image */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(135deg, rgba(8,12,20,0.4) 0%, transparent 60%)',
+          pointerEvents: 'none',
+          transition: 'opacity 0.4s',
+        }}
+          className="img-overlay"
+        />
+        {/* Curtain — slides away on reveal */}
+        <div
+          data-img-curtain={index}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundColor: 'var(--color-base)',
+            zIndex: 2,
+            transformOrigin: 'left center',
+          }}
+        />
+      </div>
+    </article>
   );
 };
 

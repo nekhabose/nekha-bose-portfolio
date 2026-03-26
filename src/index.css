@@ -96,52 +96,9 @@
     margin-bottom: 0.75rem;
   }
 
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border-radius: 9999px;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 0.875rem;
-    background-color: var(--color-accent);
-    color: #fff;
-    transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s;
-    white-space: nowrap;
-    cursor: pointer;
-    border: none;
-  }
-  .btn-primary:hover {
-    background-color: color-mix(in srgb, var(--color-accent) 85%, transparent);
-    box-shadow: var(--shadow-glow);
-  }
-  .btn-primary:active { transform: scale(0.96); }
-
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border-radius: 9999px;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 0.875rem;
-    border: 1px solid var(--color-border-subtle);
-    color: var(--color-text-primary);
-    background: transparent;
-    transition: border-color 0.2s, background-color 0.2s, transform 0.15s;
-    white-space: nowrap;
-    cursor: pointer;
-  }
-  .btn-secondary:hover {
-    border-color: rgba(59, 130, 246, 0.4);
-    background-color: var(--color-elevated);
-  }
-  .btn-secondary:active { transform: scale(0.96); }
-
+  /* ── Shared button base ─────────────────────────────── */
+  .btn-primary,
+  .btn-secondary,
   .btn-ghost {
     display: inline-flex;
     align-items: center;
@@ -152,15 +109,27 @@
     font-family: var(--font-display);
     font-weight: 700;
     font-size: 0.875rem;
-    color: var(--color-text-secondary);
-    background: transparent;
-    transition: color 0.2s, background-color 0.2s, transform 0.15s;
     white-space: nowrap;
     cursor: pointer;
-  }
-  .btn-ghost:hover {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.12);
     color: var(--color-text-primary);
-    background-color: var(--color-surface);
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover,
+  .btn-secondary:hover,
+  .btn-ghost:hover {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+    box-shadow: var(--shadow-glow);
+  }
+
+  .btn-primary:active,
+  .btn-secondary:active,
+  .btn-ghost:active {
+    transform: scale(0.96);
   }
   .btn-ghost:active { transform: scale(0.96); }
 

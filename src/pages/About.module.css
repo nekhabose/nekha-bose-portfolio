@@ -14,12 +14,44 @@
   box-shadow: var(--shadow-card);
 }
 
+/* ── Photo wrapper with animated gradient border ───────────────────────── */
+
+.photoWrapper {
+  position: relative;
+  border-radius: 26px;
+  flex-shrink: 0;
+}
+
+.photoWrapper::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 28px;
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 0.6),
+    rgba(124, 58, 237, 0.4),
+    rgba(37, 99, 235, 0.2)
+  );
+  z-index: 0;
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
 .photo {
   width: 100%;
   border-radius: 24px;
   object-fit: cover;
   aspect-ratio: 4 / 5;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+.photo:hover {
+  transform: perspective(600px) rotateY(-5deg) rotateX(3deg) scale(1.025);
+}
+
+/* ── Content column ─────────────────────────────────────────────────────── */
 
 .content {
   display: flex;
@@ -44,6 +76,8 @@
   color: var(--color-text-muted);
 }
 
+/* ── Education cards ────────────────────────────────────────────────────── */
+
 .educationGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -56,6 +90,12 @@
   border-radius: 20px;
   background: var(--color-panel);
   border: 1px solid rgba(15, 23, 42, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.eduCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.10);
 }
 
 .eduCard h3 {
@@ -76,6 +116,8 @@
   color: var(--color-text-soft);
 }
 
+/* ── Achievement chips with staggered pop-in ───────────────────────────── */
+
 .achievementGrid {
   display: flex;
   flex-wrap: wrap;
@@ -90,19 +132,57 @@
   border: 1px solid rgba(37, 99, 235, 0.12);
   font-size: 0.88rem;
   font-weight: 600;
+  animation: chipPop 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
+
+.achievementChip:hover {
+  background: rgba(37, 99, 235, 0.14);
+  transform: scale(1.04);
+}
+
+.achievementChip:nth-child(1) { animation-delay: 0.50s; }
+.achievementChip:nth-child(2) { animation-delay: 0.58s; }
+.achievementChip:nth-child(3) { animation-delay: 0.66s; }
+.achievementChip:nth-child(4) { animation-delay: 0.74s; }
+.achievementChip:nth-child(5) { animation-delay: 0.82s; }
+.achievementChip:nth-child(6) { animation-delay: 0.90s; }
+.achievementChip:nth-child(7) { animation-delay: 0.98s; }
+.achievementChip:nth-child(8) { animation-delay: 1.06s; }
+
+/* ── Resume button ──────────────────────────────────────────────────────── */
 
 .resumeBtn {
   margin-top: 0.5rem;
   width: fit-content;
 }
 
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+
 @media (max-width: 820px) {
   .grid {
     grid-template-columns: 1fr;
   }
 
-  .photo {
+  .photoWrapper {
     max-width: 320px;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .photo,
+  .eduCard,
+  .achievementChip {
+    transition: none;
+    animation: none;
+    opacity: 1;
+  }
+  .photo:hover {
+    transform: none;
+  }
+  .photoWrapper::before {
+    animation: none;
   }
 }

@@ -64,30 +64,32 @@ const Navbar = () => {
 
   return (
     <header className={styles.navbar}>
-      <button type="button" className={styles.logo} onClick={() => handleNav('home')}>
-        {profile.name}
-      </button>
-      <nav className={styles.navLinks}>
-        {links.map((link) => (
-          <button
-            key={link.id}
-            type="button"
-            onClick={() => handleNav(link.id)}
-            className={active === link.id ? styles.active : undefined}
+      <div className={styles.inner}>
+        <button type="button" className={styles.logo} onClick={() => handleNav('home')}>
+          {profile.name}
+        </button>
+        <nav className={styles.navLinks}>
+          {links.map((link) => (
+            <button
+              key={link.id}
+              type="button"
+              onClick={() => handleNav(link.id)}
+              className={active === link.id ? styles.active : undefined}
+            >
+              {link.label}
+            </button>
+          ))}
+          <a
+            href={`${import.meta.env.BASE_URL}${profile.resumeFile}`}
+            className={styles.resumeLink}
+            target="_blank"
+            rel="noreferrer"
+            download="Nekha_Bose_Resume.pdf"
           >
-            {link.label}
-          </button>
-        ))}
-        <a
-          href={`${import.meta.env.BASE_URL}${profile.resumeFile}`}
-          className={styles.resumeLink}
-          target="_blank"
-          rel="noreferrer"
-          download="Nekha_Bose_Resume.pdf"
-        >
-          Resume
-        </a>
-      </nav>
+            Resume
+          </a>
+        </nav>
+      </div>
     </header>
   );
 };

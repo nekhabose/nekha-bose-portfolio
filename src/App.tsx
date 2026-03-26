@@ -3,17 +3,14 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import ProjectDetail from './components/ProjectDetail';
-import styles from './App.module.css';
 
 function App() {
   return (
-    <div className={styles.layout}>
+    <div style={{ minHeight: '100vh', backgroundColor: 'var(--color-base)', display: 'flex', flexDirection: 'column' }}>
       <Navbar />
-      <main className={styles.content}>
+      <main style={{ flex: 1 }}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/portfolio/:id" element={<ProjectDetail />} />
         </Routes>
       </main>
       <Footer />

@@ -1,7 +1,0 @@
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 32px;
-  align-items: stretch;
-  margin: clamp(2rem, 6vw, 3rem) 0;
-}

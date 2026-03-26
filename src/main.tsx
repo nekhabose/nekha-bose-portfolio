@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
-import './vars.css';
 
 const basename = (() => {
   const base = import.meta.env.BASE_URL || '/';
@@ -11,7 +10,7 @@ const basename = (() => {
   return base.endsWith('/') ? base.slice(0, -1) : base;
 })();
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter basename={basename}>
       <App />

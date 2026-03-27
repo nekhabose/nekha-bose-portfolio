@@ -3,6 +3,11 @@ const spendwiseImg = new URL('./assets/images/spendwise-card.svg', import.meta.u
 const pantryImg = new URL('./assets/images/pantry-book.jpeg', import.meta.url).href;
 const smartmartImg = new URL('./assets/images/smartmart.jpg', import.meta.url).href;
 const travelImg = new URL('./assets/images/travel-tracker.jpg', import.meta.url).href;
+const aiLmsImg = new URL('./assets/images/AI Enterprise LMS System.png', import.meta.url).href;
+const marketplaceAiImg = new URL('./assets/images/Marketplace AI.png', import.meta.url).href;
+const pantryBookAiImg = new URL('./assets/images/Pantry Book AI.png', import.meta.url).href;
+const spendwiseAiImg = new URL('./assets/images/Spendwise AI.png', import.meta.url).href;
+const travelTrackerAiImg = new URL('./assets/images/Travel Tracker AI.png', import.meta.url).href;
 
 export const profile = {
   name: 'Nekha Bose',
@@ -126,8 +131,8 @@ export const projects = [
     category: 'RAG + Agentic Platform',
     short:
       'Multi-tenant learning platform with pluggable RAG pipelines, strict data isolation, and enterprise-ready orchestration for AI-assisted learning.',
-    thumb: heroBg,
-    hero: heroBg,
+    thumb: aiLmsImg,
+    hero: aiLmsImg,
     tech: [
       'React',
       'TypeScript',
@@ -186,8 +191,8 @@ export const projects = [
     category: 'Role-Based E-Commerce Platform',
     short:
       'Enterprise-style commerce platform focused on role-based access control, modular business flows, and deployment-ready backend patterns.',
-    thumb: smartmartImg,
-    hero: smartmartImg,
+    thumb: marketplaceAiImg,
+    hero: marketplaceAiImg,
     links: [{ label: 'GitHub', href: 'https://github.com/nekhabose/SmartMart-WebApp' }],
     tech: [
       'Jakarta EE',
@@ -244,8 +249,8 @@ export const projects = [
     category: 'Inventory + Productivity',
     short:
       'Smart pantry and recipe helper built to track inventory, reduce waste, and support better household planning.',
-    thumb: pantryImg,
-    hero: pantryImg,
+    thumb: pantryBookAiImg,
+    hero: pantryBookAiImg,
     links: [
       { label: 'Live Demo', href: 'https://pantrybook.netlify.app/' },
       { label: 'GitHub', href: 'https://github.com/nekhabose/pantry_book' },
@@ -280,8 +285,8 @@ export const projects = [
     category: 'Fintech Dashboard',
     short:
       'Budgeting dashboard focused on clear decision support, visual spending insights, and disciplined delivery through CI/CD.',
-    thumb: spendwiseImg,
-    hero: spendwiseImg,
+    thumb: spendwiseAiImg,
+    hero: spendwiseAiImg,
     links: [
       { label: 'Live Demo', href: 'https://spendwize-fintech.netlify.app/' },
       { label: 'GitHub', href: 'https://github.com/nekhabose/spendwise-ci-cd' },
@@ -316,8 +321,8 @@ export const projects = [
     category: 'Mobile AI Assistant',
     short:
       'Mobile travel planner with AI-assisted itinerary support, maps integration, and offline-friendly trip management.',
-    thumb: travelImg,
-    hero: travelImg,
+    thumb: travelTrackerAiImg,
+    hero: travelTrackerAiImg,
     links: [{ label: 'GitHub', href: 'https://github.com/nekhabose/TravelTrackerApp' }],
     tech: ['Android', 'Kotlin', 'Google Maps SDK', 'Gemini AI', 'Room', 'WorkManager'],
     metrics: ['AI itinerary support', 'Route planning', 'Offline-friendly state'],

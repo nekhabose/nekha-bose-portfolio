@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import headshot from '../assets/images/headshot.jpg';
+import heroPhoto from '../assets/hero/Hero.jpeg';
 import { education, profile, certifications } from '../utils';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
@@ -21,36 +21,52 @@ const About: React.FC = () => {
         className="about-grid"
       >
         {/* Photo */}
-        <div
-          data-about-reveal
-          style={{
-            position: 'relative',
-            borderRadius: '1.25rem',
-            overflow: 'hidden',
-            boxShadow: 'var(--shadow-card)',
-            border: '1px solid rgba(255,255,255,0.06)',
-            flexShrink: 0,
-            opacity: 0,
-          }}
-        >
-          <img
-            src={headshot}
-            alt="Nekha Bose headshot"
-            loading="lazy"
+        {/* Outer div: GSAP reveal (opacity + translateY) */}
+        <div data-about-reveal style={{ opacity: 0, flexShrink: 0 }}>
+          {/* Inner div: CSS float animation — separate from GSAP transform */}
+          <div
+            className="about-photo-wrap"
             style={{
-              width: '100%',
-              display: 'block',
-              aspectRatio: '4/5',
-              objectFit: 'cover',
+              position: 'relative',
+              borderRadius: '1.25rem',
+              overflow: 'hidden',
+              boxShadow: 'var(--shadow-card)',
+              border: '1px solid rgba(255,255,255,0.06)',
+              animation: 'photoFloat 5s ease-in-out infinite',
+              transition: 'box-shadow 0.4s, border-color 0.4s',
             }}
-          />
-          {/* gradient fade at bottom */}
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(to top, rgba(13,17,23,0.5) 0%, transparent 50%)',
-            pointerEvents: 'none',
-          }} />
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLElement).style.boxShadow = '0 0 32px 6px rgba(59,130,246,0.25), var(--shadow-card)';
+              (e.currentTarget as HTMLElement).style.borderColor = 'rgba(59,130,246,0.35)';
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLElement).style.boxShadow = 'var(--shadow-card)';
+              (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.06)';
+            }}
+          >
+            <img
+              src={heroPhoto}
+              alt="Nekha Bose"
+              loading="lazy"
+              style={{
+                width: '100%',
+                display: 'block',
+                aspectRatio: '3/4',
+                objectFit: 'cover',
+                objectPosition: 'top center',
+                transition: 'transform 0.5s ease',
+              }}
+              onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.04)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'; }}
+            />
+            {/* gradient fade at bottom */}
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(to top, rgba(13,17,23,0.5) 0%, transparent 50%)',
+              pointerEvents: 'none',
+            }} />
+          </div>
         </div>
 
         {/* Content */}
@@ -185,6 +201,10 @@ const About: React.FC = () => {
 
       {/* Responsive override */}
       <style>{`
+        @keyframes photoFloat {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
         @media (max-width: 820px) {
           .about-grid {
             grid-template-columns: 1fr !important;

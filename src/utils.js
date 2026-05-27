@@ -21,7 +21,7 @@ export const profile = {
   phone: '+1 312-874-9702',
   linkedin: 'https://www.linkedin.com/in/nekha-bose',
   github: 'https://github.com/nekhabose',
-  site: 'https://nekhabose.github.io/nekha-bose-portfolio',
+  site: 'https://nekhabose.com',
   resumeFile: 'nekhaBoseResume.pdf',
   focusAreas: [
     'AI and agentic product delivery',
@@ -30,10 +30,10 @@ export const profile = {
     'Engineering leadership and execution',
   ],
   heroMetrics: [
-    { value: '150+', label: 'Production APIs' },
-    { value: '75+', label: 'PostgreSQL schemas' },
-    { value: '15+', label: 'Engineers led' },
-    { value: '10M+', label: 'Users supported' },
+    { value: '6+', label: 'Years enterprise delivery' },
+    { value: '10M+', label: 'Users on shipped platforms' },
+    { value: '40%', label: 'Avg. performance gains' },
+    { value: 'Fortune 100', label: 'Client tier' },
   ],
   achievements: [
     'Led 15+ engineers across product and platform delivery.',

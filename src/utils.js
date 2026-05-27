@@ -3,11 +3,11 @@ const spendwiseImg = new URL('./assets/images/spendwise-card.svg', import.meta.u
 const pantryImg = new URL('./assets/images/pantry-book.jpeg', import.meta.url).href;
 const smartmartImg = new URL('./assets/images/smartmart.jpg', import.meta.url).href;
 const travelImg = new URL('./assets/images/travel-tracker.jpg', import.meta.url).href;
-const aiLmsImg = new URL('./assets/images/AI Enterprise LMS System.png', import.meta.url).href;
-const marketplaceAiImg = new URL('./assets/images/Marketplace AI.png', import.meta.url).href;
-const pantryBookAiImg = new URL('./assets/images/Pantry Book AI.png', import.meta.url).href;
-const spendwiseAiImg = new URL('./assets/images/Spendwise AI.png', import.meta.url).href;
-const travelTrackerAiImg = new URL('./assets/images/Travel Tracker AI.png', import.meta.url).href;
+const aiLmsImg = new URL('./assets/images/AI Enterprise LMS System.webp', import.meta.url).href;
+const marketplaceAiImg = new URL('./assets/images/Marketplace AI.webp', import.meta.url).href;
+const pantryBookAiImg = new URL('./assets/images/Pantry Book AI.webp', import.meta.url).href;
+const spendwiseAiImg = new URL('./assets/images/Spendwise AI.webp', import.meta.url).href;
+const travelTrackerAiImg = new URL('./assets/images/Travel Tracker AI.webp', import.meta.url).href;
 
 export const profile = {
   name: 'Nekha Bose',

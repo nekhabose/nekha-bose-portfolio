@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useGSAP } from '@gsap/react';
 import { gsap } from '../lib/gsap';
 import { profile } from '../utils';
@@ -139,6 +139,26 @@ const Navbar: React.FC = () => {
               {link.label}
             </button>
           ))}
+          <Link
+            to="/blog"
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 600,
+              fontSize: '0.875rem',
+              padding: '0.5rem 0.875rem',
+              borderRadius: '9999px',
+              border: 'none',
+              background: 'none',
+              cursor: 'pointer',
+              color: location.pathname.startsWith('/blog') ? 'var(--color-text-primary)' : 'var(--color-text-muted)',
+              backgroundColor: location.pathname.startsWith('/blog') ? 'rgba(255,255,255,0.06)' : 'transparent',
+              transition: 'color 0.2s, background-color 0.2s',
+              textDecoration: 'none',
+              display: 'inline-block',
+            }}
+          >
+            Blog
+          </Link>
           <a
             href={resumeUrl}
             download="Nekha_Bose_Resume.pdf"
@@ -237,6 +257,23 @@ const Navbar: React.FC = () => {
                 {link.label}
               </button>
             ))}
+            <Link
+              to="/blog"
+              onClick={() => setMenuOpen(false)}
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontWeight: 600,
+                fontSize: '1rem',
+                padding: '0.75rem 1rem',
+                borderRadius: '0.75rem',
+                background: location.pathname.startsWith('/blog') ? 'rgba(255,255,255,0.06)' : 'none',
+                color: location.pathname.startsWith('/blog') ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                display: 'block',
+                textDecoration: 'none',
+              }}
+            >
+              Blog
+            </Link>
             <a
               href={resumeUrl}
               download="Nekha_Bose_Resume.pdf"

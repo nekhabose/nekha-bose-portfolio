@@ -195,4 +195,96 @@ export const blogPosts: BlogPost[] = [
 <p>The teams that will ship the best AI products in 2027 are the ones building clean, layered architectures today that can take advantage of infrastructure improvements without a rewrite. Inference cost dropping by 5x is a tailwind. Make sure your system is pointed in the right direction to benefit from it.</p>
     `.trim(),
   },
+  {
+    slug: 'claude-opus-48-and-the-inference-speed-war',
+    title: 'Claude Opus 4.8, Mercury 2, and the Inference Speed War That Changes Agentic Design',
+    date: '2026-06-01',
+    readTime: '7 min read',
+    tags: ['Claude', 'LLMs', 'Agentic AI', 'Inference', 'Benchmarks'],
+    description:
+      'Claude Opus 4.8 just hit 69.2% on SWE-bench Pro. Inception Mercury 2 runs at 1,009 tokens per second via diffusion. These two releases together reframe what is possible in production agentic systems.',
+    content: `
+<h2>Two Releases That Reframe What Is Possible</h2>
+<p>Two model releases in late May and early June 2026 are worth studying together because they attack the agentic AI problem from opposite directions. Claude Opus 4.8 raises the ceiling on what an agent can correctly accomplish. Mercury 2 from Inception Labs raises the floor on how fast it can operate. Understanding both is necessary for making good architecture decisions right now.</p>
+
+<h2>What Opus 4.8 Actually Changes</h2>
+<p>Anthropic shipped Claude Opus 4.8 on May 28, 2026 with 88.6% on SWE-bench Verified and 69.2% on SWE-bench Pro, a roughly 5-point gain over Opus 4.7. The Pro benchmark is the harder signal: it covers 1,000 problems and is significantly more resistant to overfitting than Verified. GPT-5.5 sits at 58.6% on the same benchmark. Gemini 3.1 Pro is at 54.2%. The gap is not marginal.</p>
+<p>For teams building autonomous software engineering pipelines, this matters directly. The benchmark measures an agent's ability to resolve real GitHub issues across a wide range of codebases, not synthetic problems. A 69.2% success rate means roughly 7 in 10 real-world software tasks are resolved correctly without human intervention. That is a different product than a 54% or 58% model, not just a better score on a leaderboard.</p>
+<p>Two other Opus 4.8 details deserve attention. Fast Mode is now 3x cheaper than on Opus 4.7 and runs at 2.5x speed, which makes it viable for the inner loops of agentic workflows that previously required routing to a Haiku-class model for cost reasons. And the release includes a fix for comment verbosity and tool-calling regressions that appeared in 4.7, which means less post-processing cleanup for teams that parse structured agent outputs.</p>
+
+<h2>Mercury 2: Why Diffusion Changes the Architecture</h2>
+<p>Inception Labs released Mercury 2 with 1,009 tokens per second on NVIDIA Blackwell hardware and 1.7 seconds end-to-end latency. The mechanism is not faster autoregressive sampling. Mercury 2 is a diffusion language model: it generates all output tokens in parallel rather than left to right. This is architecturally distinct from every major production LLM in use today.</p>
+<p>The practical implication for agentic systems is significant. In a typical agentic loop with LangGraph or a similar framework, each reasoning step involves a model call that blocks until the output is complete. At 89 tokens per second for Claude Haiku or 71 for GPT-5 Mini, a 200-token reasoning step takes roughly 2 seconds. At 1,009 tokens per second, the same step takes under 200 milliseconds. For an agent that makes 20 reasoning steps to complete a task, that is the difference between a 40-second workflow and a 4-second one.</p>
+<p>Mercury 2 also costs 5x less per token than leading speed-optimized models. For workflows where correctness is achievable by a faster, cheaper model and latency is the primary constraint, it deserves serious evaluation.</p>
+
+<h2>How to Think About These Models Together</h2>
+<p>The pattern that emerges from having both models available is tiered inference by task type. Use Opus 4.8 for the high-stakes reasoning steps in an agent workflow: complex code generation, multi-file refactoring, ambiguous intent resolution. Use Mercury 2 or a Haiku-class model for the high-frequency, lower-complexity steps: routing decisions, short summaries, classification, context filtering before retrieval.</p>
+<p>The performance gap between tiers has widened in both directions simultaneously. The top tier is smarter. The fast tier is faster. The case for a flat single-model agent architecture is weaker than it was six months ago.</p>
+
+<h2>What to Watch Next</h2>
+<p>The SWE-bench Pro leaderboard is the most honest signal for production coding agent quality right now. Watch for whether Gemini 3.5 or a GPT-6-class model closes the gap on Opus 4.8 in Q3 2026. On the diffusion side, watch for Mercury 2 to add native tool use and structured outputs, which would make it a viable drop-in for orchestration steps that currently require an autoregressive model. When that happens, the cost and latency profile of full agentic pipelines changes significantly.</p>
+    `.trim(),
+  },
+  {
+    slug: 'microsoft-build-2026-developer-platform-goes-agent-native',
+    title: 'Microsoft Build 2026: The Developer Platform Just Went Fully Agent-Native',
+    date: '2026-06-03',
+    readTime: '6 min read',
+    tags: ['Microsoft Build', 'GitHub Copilot', 'Azure AI', 'Agentic AI', 'Enterprise'],
+    description:
+      'Microsoft Build 2026 was not a product launch event. It was a platform reorientation. Every major developer tool now assumes agents are a first-class runtime, not a feature to be added later.',
+    content: `
+<h2>The Signal Beneath the Announcements</h2>
+<p>Microsoft Build 2026 ran June 2 and 3 in San Francisco, and the product list was long: the GitHub Copilot desktop app, Microsoft Scout, Microsoft IQ, Azure AI Foundry updates, Project Rayfin, and more. If you read each announcement individually, it looks like a product portfolio update. Read them together and the picture is different. Microsoft has restructured its entire developer platform around a single assumption: autonomous agents are a first-class runtime, not an experimental feature you opt into.</p>
+<p>Every tool Microsoft shipped at Build either enables agents, governs agents, or runs as an agent itself. That is a platform bet, not a product roadmap. Understanding the architecture behind these announcements matters more than tracking the feature list.</p>
+
+<h2>The GitHub Copilot App: Parallel Agents via Git Worktrees</h2>
+<p>The GitHub Copilot native desktop app ships on Windows, macOS, and Linux with three operating modes: Interactive, Plan, and Autopilot. The mode most relevant to engineering teams is Autopilot combined with Agent Merge, which uses git worktrees to run multiple agent sessions in parallel on the same repository without branch conflicts.</p>
+<p>This is a direct technical answer to what has made Cursor competitive: whole-project context and parallel agent execution. Microsoft's git worktree approach is grounded in a mechanism developers already understand. Parallel agents that commit to isolated worktrees and then merge via Agent Merge are auditable in ways that opaque multi-agent session state is not. The PR is the artifact.</p>
+
+<h2>Microsoft Scout and the Persistent Agent Identity Problem</h2>
+<p>Scout is Microsoft's first product in a new category they are calling Autopilots: agents with a persistent identity that act on your behalf continuously, rather than being invoked per task. Scout handles research and complex multi-step work without a human in the loop for each step.</p>
+<p>The engineering question Scout raises is the one that matters most for teams thinking about the next generation of enterprise agents: what does it mean for an agent to have persistent identity across sessions, and how do you govern an entity that acts on behalf of a user over time rather than in response to a single prompt? Microsoft IQ, which provides a unified knowledge layer grounding agents in both live world context and private enterprise knowledge graphs, is the governance layer that makes persistent agent identity tractable in enterprise environments.</p>
+
+<h2>Azure AI Foundry: One Plane for All Models</h2>
+<p>The Azure AI Foundry update is the most structurally important announcement for enterprise engineers. Claude Sonnet 4.5, Haiku 4.5, and Opus 4.1 are now in public preview via Foundry. GPT-5.5 went GA in Foundry on June 3. All models are deployable under Microsoft Entra authentication, MACC billing, and unified compliance controls, with SDKs in Python, TypeScript, and C#.</p>
+<p>The practical implication: if your organization is already on Azure, you can now deploy Anthropic and OpenAI models under the same identity and billing plane you use for the rest of your infrastructure. You do not need a separate Anthropic API account, a separate key management system, or a separate compliance review. The procurement barrier for Claude in enterprise environments just dropped significantly.</p>
+<p>Project Rayfin, an agent-first SDK for exposing backend services as agent endpoints, extends this further. Your existing APIs become MCP-compatible tool surfaces discoverable by any agent running on Foundry. This is the Azure-native version of the MCP ecosystem story, with identity, billing, and compliance built in from the start.</p>
+
+<h2>What This Means for Engineering Teams</h2>
+<p>If your team is building internal AI tools on Azure, the Build 2026 announcements compress your infrastructure roadmap. Managed model access, unified auth, compliance controls, and an agent-tool SDK are all available under one roof. The argument for building a custom model gateway weakens when Foundry provides the same controls with less operational overhead.</p>
+<p>The more important shift is the one signaled by Scout. Persistent, autonomous agents that act over time without per-step human invocation are moving from research concept to supported product category. The governance infrastructure required for that model, including audit trails, scoped permissions, and human escalation paths, needs to be in your architecture before the agents arrive in your systems, not after.</p>
+    `.trim(),
+  },
+  {
+    slug: 'managed-rag-era-vertex-ai-snowflake-anthropic',
+    title: 'The Managed RAG Era: Why Your Next RAG System Might Look Very Different',
+    date: '2026-06-04',
+    readTime: '6 min read',
+    tags: ['RAG', 'Vertex AI', 'Snowflake', 'Enterprise AI', 'Cloud Architecture'],
+    description:
+      'Google Cloud shipped Vector Search 2.0 and a serverless RAG engine. Snowflake embedded Claude directly in the data platform. The operational complexity of RAG is collapsing into managed services, and that changes how you should architect today.',
+    content: `
+<h2>Two Releases That Shrink the RAG Stack</h2>
+<p>Two announcements in June 2026 are worth examining together because they attack the same problem from different angles. Google Cloud shipped Vector Search 2.0 to GA alongside a public preview of Vertex AI RAG Engine Serverless mode. Snowflake and Anthropic announced that Claude is now embedded natively in Snowflake Cortex AI. Both moves reduce the operational complexity of production RAG systems, but they do it differently and for different contexts.</p>
+
+<h2>What Vector Search 2.0 and RAG Engine Serverless Actually Change</h2>
+<p>Vector Search 2.0 GA introduces three capabilities in one managed primitive: auto-embeddings that populate vector fields automatically on document ingest, hybrid search that combines vector similarity, BM25 full-text, and semantic reranking in a single parallel query, and unified collections that store structured metadata and vector fields together.</p>
+<p>The significance is operational, not algorithmic. Hybrid search with reranking has been the production-grade retrieval standard for well over a year. The problem has been that implementing it required coordinating three separate systems: an embedding service, a vector database, and a reranking model, each with its own provisioning, scaling, and failure modes. Vector Search 2.0 collapses those three into one managed call.</p>
+<p>RAG Engine Serverless goes further. No database provisioning. Scale to zero. The public preview also ships cross-corpus retrieval via AsyncRetrieveContexts and AskContexts APIs, which lets you query multiple RAG corpora simultaneously in a single request. For multi-tenant SaaS products where each customer has an isolated knowledge base, cross-corpus retrieval handles the fan-out query pattern that previously required custom orchestration code.</p>
+
+<h2>The Snowflake Pattern: Embed the Model in the Data</h2>
+<p>The Snowflake and Anthropic integration takes a structurally different approach. Rather than moving data to a model API, Claude runs inside Snowflake Cortex AI. The model queries governed views of the data. Row-level security, column masking, data lineage, and audit logs all apply to Claude interactions the same way they apply to any Snowflake query.</p>
+<p>This matters most in regulated industries. The standard enterprise RAG architecture requires data to leave the secure perimeter, get chunked and embedded, get stored in a vector database, and get returned to a model API in context. Each of those steps is a potential compliance surface. The Cortex AI pattern eliminates most of them: the data never moves, the access controls never change, and the audit trail is native to the platform your data team already manages.</p>
+<p>This announcement came in the same two-week window as a 30,000-seat PwC-Claude deal and a 276,000-seat KPMG-Claude deal. Enterprise AI adoption in regulated industries is no longer a future prediction. It is a current procurement reality, and the Snowflake pattern is the architecture that makes it possible without requiring a compliance overhaul.</p>
+
+<h2>Is RAG Going Away?</h2>
+<p>A widely-shared post from May 2026 argues that agentic search stacks are replacing RAG. The argument is partially right and mostly wrong. What is going away is the operational burden of assembling a RAG pipeline from scratch. What is not going away is the need to ground language models in specific, current, access-controlled knowledge. That need is growing.</p>
+<p>The pattern that is actually emerging is this: RAG as a concept is becoming invisible because it is being absorbed into managed services. You will not build a RAG system in 2027 the way you built one in 2024. You will configure a managed retrieval layer, connect it to your data, and the chunking, embedding, hybrid search, and reranking will be handled by infrastructure you do not operate. The engineering decisions that remain are the high-value ones: what data do you include, how do you evaluate retrieval quality, and how do you govern access.</p>
+
+<h2>What to Do Now</h2>
+<p>If you are on GCP and starting a new RAG project, evaluate Vector Search 2.0 and RAG Engine Serverless before committing to a custom stack. The managed layer is now good enough that a custom build needs to justify itself with a specific capability requirement, not just a preference for control.</p>
+<p>If you are building AI agents that need to operate on sensitive enterprise data, the Snowflake Cortex AI pattern is worth understanding even if Snowflake is not your current data platform. The principle transfers: put the model closer to the data governance layer rather than pulling data out to the model. That architecture decision will matter more as agents move from read-only retrieval to read-write operations on production data.</p>
+    `.trim(),
+  },
 ];

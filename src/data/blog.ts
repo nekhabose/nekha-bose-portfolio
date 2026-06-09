@@ -375,4 +375,108 @@ export const blogPosts: BlogPost[] = [
 <p>If you are building AI agents that need to operate on sensitive enterprise data, the Snowflake Cortex AI pattern is worth understanding even if Snowflake is not your current data platform. The principle transfers: put the model closer to the data governance layer rather than pulling data out to the model. That architecture decision will matter more as agents move from read-only retrieval to read-write operations on production data.</p>
     `.trim(),
   },
+  {
+    slug: 'gemini-35-flash-when-the-cheap-tier-wins-on-agents',
+    title: 'Gemini 3.5 Flash: When the Cheap Tier Starts Beating the Expensive One',
+    date: '2026-06-08',
+    readTime: '6 min read',
+    tags: ['Gemini', 'LLM', 'AI Agents', 'Model Selection', 'Cost Optimization'],
+    description:
+      'Google shipped a Flash-tier model that outperforms last year\'s Pro tier on agent and coding benchmarks at a fraction of the cost. That inversion breaks a default a lot of teams have been coasting on: reach for the biggest model.',
+    content: `
+<h2>The Default That Just Broke</h2>
+<p>For two years the model-selection heuristic was simple: use the cheap fast tier for high-volume simple work, and escalate to the flagship Pro tier when the task got hard. Reasoning, agentic tool use, multi-step coding,that was Pro territory. With Gemini 3.5 Flash, which went GA on May 19 2026 at Google I/O, that heuristic stops being safe.</p>
+<p>Flash now beats Gemini 3.1 Pro,the previous generation's flagship,on the coding and agentic suite: 76.2% vs 70.3% on Terminal-Bench 2.1, 83.6% vs 78.2% on MCP Atlas, and 57.9% vs 43.0% on Finance Agent v2. It does this at $1.50 input / $9 output per 1M tokens, roughly 25% cheaper than the Pro tier it outperforms. For agentic workloads specifically, the cheap tier is now the better tier.</p>
+
+<h2>Why Agent Benchmarks Inverted Before Knowledge Benchmarks</h2>
+<p>The interesting detail is where Flash does <em>not</em> win. It trails on MRCR v2 (long-context recall) and Humanity's Last Exam, where raw stored knowledge matters more than tool-use skill. On ARC-AGI-2 it drops 12.5 points behind GPT-5.5. So this isn't "small model caught up to big model on everything." It's narrower and more useful than that: the capabilities that drive agentic performance,tool selection, multi-step planning, structured output discipline,have become cheap to deliver, while the capabilities that depend on sheer parameter count and stored knowledge have not.</p>
+<p>That maps to something I keep seeing in production. Most of what makes an agent good isn't the model knowing obscure facts. It's the model reliably picking the right tool, passing clean arguments, and not looping. Those are exactly the skills that distilled into the Flash tier first.</p>
+
+<h2>What This Changes in Practice</h2>
+<p>If you run agentic pipelines, your model-selection logic probably has a tier-escalation rule baked in: simple turn goes to Flash, complex turn goes to Pro. Audit that rule. For tool-calling and multi-step orchestration, the escalation may now be costing you money to get a <em>worse</em> result. The new shape of the decision is:</p>
+<ul>
+  <li><strong>Agentic, tool-heavy, multi-step coding:</strong> default to the current Flash tier. Escalate only when you measure a regression.</li>
+  <li><strong>Long-context synthesis, deep reasoning, knowledge-intensive Q&A:</strong> Pro still earns its price.</li>
+  <li><strong>High-volume classification and extraction:</strong> Flash, as always,but now with headroom you didn't have before.</li>
+</ul>
+<p>The practical move is to re-run your evals with the cheap tier on the workloads you currently send to the expensive one. I'd bet a meaningful slice of them flip.</p>
+
+<h2>The Bigger Pattern</h2>
+<p>Every cycle, the capability frontier that used to require the flagship gets pushed down into the cheap, fast tier. What's notable in mid-2026 is the speed: a Flash-tier model is leading Pro-class models from competing labs on agent benchmarks within a single generation. If you're architecting a system today, don't hardcode a specific model as "the smart one." Build your routing layer so the tier assignment is a config value you can re-tune every quarter, because the price-performance map is being redrawn roughly that often.</p>
+<p>The teams that win on cost aren't the ones who picked the right model. They're the ones who made model choice cheap to change.</p>
+    `.trim(),
+  },
+  {
+    slug: 'gpt-54-native-computer-use-agents-leave-the-api',
+    title: 'GPT-5.4 Has Native Computer Use. Agents Are About to Leave the API.',
+    date: '2026-06-08',
+    readTime: '7 min read',
+    tags: ['GPT-5.4', 'Computer Use', 'AI Agents', 'Automation', 'Production AI'],
+    description:
+      'OpenAI shipped the first general-purpose model with native, state-of-the-art computer use. That moves agents from "call clean APIs" to "operate the messy GUI a human would," and it changes what you can automate and what you have to defend against.',
+    content: `
+<h2>The Wall Most Agents Hit</h2>
+<p>Every agentic system I've built eventually runs into the same wall: the thing you need to automate has no API. An internal admin panel. A vendor portal. A legacy ERP screen. A spreadsheet someone in finance updates by hand. The agent can reason perfectly and still be stuck, because there's no clean interface for it to call.</p>
+<p>GPT-5.4, which OpenAI describes as its first general-purpose model with native, state-of-the-art computer-use capabilities, is built to climb that wall. It can issue mouse and keyboard commands in response to screenshots, and it's genuinely good at writing Playwright code to drive a browser or an OS-level UI. File navigation, GUI form completion, spreadsheet editing on Windows and macOS,the model operates the interface a human would, not a sanitized API surface.</p>
+
+<h2>Why "Native" Matters Here</h2>
+<p>Computer use isn't new as a concept,there have been screenshot-loop agents for a while. What's different is that it's now native to a frontier general-purpose model rather than a bolted-on specialized mode. Combined with a 1M-token context window, the model can plan, execute, and verify across a long horizon: read the screen, take an action, check the result, recover from an unexpected dialog, and keep going without losing the thread of a multi-step task.</p>
+<p>OpenAI also added tool search, which lets the model find and select the right tool from a large connector ecosystem without that selection step degrading its reasoning. That's a quieter feature but a meaningful one,tool sprawl is a real failure mode in production agents, and routing through hundreds of tools usually tanks quality. Solving tool discovery is part of making computer-use agents work at scale.</p>
+
+<h2>The Engineering Reality, Not the Demo</h2>
+<p>Having shipped agentic features, I'll say the same thing I always say: the demo is the easy 80%. Computer-use agents inherit every classic UI-automation fragility,layouts shift, modals appear, sessions expire, a button moves four pixels,plus the new failure modes of a probabilistic driver. Before you put one in production:</p>
+<ul>
+  <li><strong>Sandbox everything.</strong> A model driving a real mouse and keyboard with write access is a different risk class than a read-only API agent. Run it in an isolated VM or container with scoped credentials, never on a machine with standing access to anything that matters.</li>
+  <li><strong>Confirm before consequential actions.</strong> Reading a screen is safe. Clicking "Submit payment" or "Delete records" needs a human gate or a hard allowlist, the same discipline I apply to any agent that can write to production.</li>
+  <li><strong>Checkpoint and verify each step.</strong> After every action, the agent should confirm the expected state before proceeding. A computer-use agent that doesn't verify is one stale screenshot away from clicking the wrong thing 30 times.</li>
+  <li><strong>Log the screenshots.</strong> When it goes wrong,and it will,a trace of text decisions isn't enough. You need the visual state the model was acting on to debug it.</li>
+</ul>
+
+<h2>The Security Footnote Nobody Wants to Read</h2>
+<p>A model that operates GUIs is also a model that prompt injection can weaponize in a new way. A malicious instruction rendered on a page the agent is reading,in a support ticket, an email, a web form,can now translate into real clicks, not just a bad text response. If you deploy computer-use agents, the content they look at is part of your attack surface. Treat on-screen text as untrusted input the same way you treat user input to any system.</p>
+
+<h2>What I'd Build First</h2>
+<p>Don't start with the highest-stakes workflow. Start with a read-and-report task on a system that has no API,scrape a vendor portal into a structured report, reconcile two internal dashboards, pull status from a legacy screen into Slack. You get the automation value, you learn the failure modes, and a mistake costs you a wrong report instead of a wrong wire transfer. Once you trust the verification loop, then you let it write.</p>
+<p>Native computer use removes the "no API" excuse from a huge category of automation backlog. The teams that benefit will be the ones who pair that capability with the boring discipline,sandboxing, confirmation gates, verification,that keeps a model with a mouse from becoming a liability with a mouse.</p>
+    `.trim(),
+  },
+  {
+    slug: 'karpathy-autoresearch-agents-that-improve-the-codebase',
+    title: 'Karpathy\'s Autoresearch: What It Means That an Agent Found Optimizations He Missed for 20 Years',
+    date: '2026-06-09',
+    readTime: '6 min read',
+    tags: ['AI Agents', 'Autonomous Systems', 'ML Engineering', 'Research', 'Automation'],
+    description:
+      'An AI agent ran 700 experiments over two days and found a 11% training speedup on code Andrej Karpathy had already spent years optimizing. The result is impressive. The pattern underneath it is the part worth copying.',
+    content: `
+<h2>What Actually Happened</h2>
+<p>In March 2026 Andrej Karpathy released Autoresearch, an open-source framework where an AI agent runs ML experiments autonomously,it reads and edits the training source directly, runs an experiment, scores the result on a single metric, keeps the change if it helped, reverts it if it didn't, and loops. No human in the loop between iterations.</p>
+<p>Pointed at his own nanoGPT-style training setup, the agent ran 700 experiments over two days on a single GPU and found 20 optimizations that cut time-to-GPT-2-quality from 2.02 hours to 1.80 hours,an 11% speedup. The headline that traveled: it found improvements on code one of the best ML researchers alive had already optimized over years. The framework itself is about 630 lines.</p>
+
+<h2>The Part That Isn't About ML</h2>
+<p>It's tempting to read this as a story about AI doing ML research. The more useful reading is about a <em>control loop</em>, and that loop generalizes far beyond model training. Strip it down and Autoresearch is four pieces:</p>
+<ul>
+  <li><strong>An agent that can modify the system directly</strong>,not tune values in a grid, but rewrite the actual code.</li>
+  <li><strong>A single, trustworthy metric</strong> that decides whether a change is better.</li>
+  <li><strong>Cheap, isolated, repeatable evaluation</strong>,each experiment runs clean and gives a comparable number.</li>
+  <li><strong>Automatic keep-or-revert</strong>,improvements stick, regressions get rolled back, no human approval per step.</li>
+</ul>
+<p>Where those four conditions hold, you can point an agent at a problem and let it grind through hundreds of variations overnight. That's a much broader space than ML training. Query optimization, build-time reduction, bundle-size shrinking, prompt and retrieval tuning, cost-per-request reduction,any domain with a clean objective function and a fast eval is a candidate.</p>
+
+<h2>Why the Metric Is the Whole Game</h2>
+<p>The reason this worked is that "time-to-GPT-2-quality" is an almost perfect optimization target: it's a single number, it's faithful to what you actually care about, and it's cheap enough to measure 700 times. Most real systems don't have that. If your metric is gameable, the agent will game it,it'll find the change that improves the number while making the system worse, because that's literally what you asked for. An overnight agent loop is a machine for exploiting weaknesses in your eval.</p>
+<p>So the engineering work isn't building the agent loop,Karpathy did that in 630 lines. The work is building a metric you'd trust enough to ship on without reading every diff, and an evaluation harness clean enough to run unattended hundreds of times. If you can't write that metric, you're not ready to automate the loop, and that's the honest gate on most of these projects.</p>
+
+<h2>How I'd Apply It</h2>
+<p>I'm not going to hand an autonomous agent write access to a production codebase and let it commit overnight,the keep-or-revert step needs to be airtight, and most real systems don't have a single clean metric covering correctness, performance, and safety at once. But the pattern is directly usable in bounded settings:</p>
+<ul>
+  <li><strong>Performance tuning behind a benchmark.</strong> Point it at a hot path with a reliable perf benchmark and let it propose and test rewrites. You review the survivors, not the 700 attempts.</li>
+  <li><strong>Retrieval and prompt optimization.</strong> RAG pipelines have exactly the right shape,a clear relevance metric and a cheap eval set. Let an agent search the chunking/retrieval/reranking config space against your eval, the way I'd otherwise do by hand over weeks.</li>
+  <li><strong>Always sandbox and gate the merge.</strong> Agent iterates freely in isolation; a human gate stands between its best result and main. That keeps the speed without inheriting the risk.</li>
+</ul>
+
+<h2>The Takeaway</h2>
+<p>The lesson of Autoresearch isn't "AI will replace ML researchers." It's that a tireless agent running a tight experiment loop will out-search a human in any space where you've defined a good objective and made evaluation cheap. The competitive edge moves from <em>having good ideas</em> to <em>building the harness that lets a machine test thousands of them.</em> That's an engineering problem, and it's one worth getting good at now.</p>
+    `.trim(),
+  },
 ];

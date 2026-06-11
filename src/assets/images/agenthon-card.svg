@@ -1,0 +1,45 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ag-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06090f" />
+      <stop offset="50%" stop-color="#0a1626" />
+      <stop offset="100%" stop-color="#0d2138" />
+    </linearGradient>
+    <radialGradient id="ag-glow" cx="0.5" cy="0.5" r="0.6">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="ag-node" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#818cf8" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#ag-bg)" />
+  <circle cx="800" cy="480" r="440" fill="url(#ag-glow)" />
+
+  <!-- orchestration edges -->
+  <g stroke="url(#ag-node)" stroke-width="5" opacity="0.55">
+    <line x1="800" y1="470" x2="420" y2="240" />
+    <line x1="800" y1="470" x2="1180" y2="240" />
+    <line x1="800" y1="470" x2="380" y2="700" />
+    <line x1="800" y1="470" x2="1220" y2="700" />
+  </g>
+
+  <!-- agent nodes -->
+  <g font-family="'Poppins', sans-serif" font-weight="600" font-size="26" fill="#e0f2fe" text-anchor="middle">
+    <g transform="translate(420,240)"><circle r="78" fill="rgba(10,22,40,0.9)" stroke="url(#ag-node)" stroke-width="8"/><text y="8">DISCOVER</text></g>
+    <g transform="translate(1180,240)"><circle r="78" fill="rgba(10,22,40,0.9)" stroke="url(#ag-node)" stroke-width="8"/><text y="8">RESEARCH</text></g>
+    <g transform="translate(380,700)"><circle r="78" fill="rgba(10,22,40,0.9)" stroke="url(#ag-node)" stroke-width="8"/><text y="8">OUTREACH</text></g>
+    <g transform="translate(1220,700)"><circle r="78" fill="rgba(10,22,40,0.9)" stroke="url(#ag-node)" stroke-width="8"/><text y="8">REPLIES</text></g>
+  </g>
+
+  <!-- orchestrator core -->
+  <g transform="translate(800,470)">
+    <circle r="120" fill="rgba(6,9,15,0.92)" stroke="url(#ag-node)" stroke-width="14" />
+    <circle r="150" fill="none" stroke="#38bdf8" stroke-width="3" opacity="0.4" />
+    <text text-anchor="middle" y="-2" font-family="'Poppins', sans-serif" font-weight="700" font-size="34" fill="#bae6fd">MULTI</text>
+    <text text-anchor="middle" y="40" font-family="'Poppins', sans-serif" font-weight="700" font-size="34" fill="#bae6fd">AGENT</text>
+  </g>
+
+  <text x="800" y="940" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="500" font-size="30" fill="#93c5fd" opacity="0.85">SALES AUTOMATION ORCHESTRATION</text>
+</svg>

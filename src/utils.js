@@ -8,6 +8,10 @@ const marketplaceAiImg = new URL('./assets/images/Marketplace AI.webp', import.m
 const pantryBookAiImg = new URL('./assets/images/Pantry Book AI.webp', import.meta.url).href;
 const spendwiseAiImg = new URL('./assets/images/Spendwise AI.webp', import.meta.url).href;
 const travelTrackerAiImg = new URL('./assets/images/Travel Tracker AI.webp', import.meta.url).href;
+const sentinelAiImg = new URL('./assets/images/sentinelai-card.svg', import.meta.url).href;
+const careGuardImg = new URL('./assets/images/careguard-card.svg', import.meta.url).href;
+const agenthonImg = new URL('./assets/images/agenthon-card.svg', import.meta.url).href;
+const ragSuiteImg = new URL('./assets/images/rag-suite-card.svg', import.meta.url).href;
 
 export const profile = {
   name: 'Nekha Bose',
@@ -125,6 +129,240 @@ export const experiences = [
 ];
 
 export const projects = [
+  {
+    id: 'sentinelai',
+    title: 'SentinelAI',
+    category: 'AI Identity Security Platform',
+    short:
+      'AI-native identity security platform that discovers, scores, and auto-remediates risk across human and machine identities, built for a world where AI agents are first-class identities.',
+    thumb: sentinelAiImg,
+    hero: sentinelAiImg,
+    links: [{ label: 'GitHub', href: 'https://github.com/nekhabose/SentinelAI' }],
+    tech: [
+      'Python 3.14',
+      'FastAPI',
+      'React',
+      'TypeScript',
+      'Vite',
+      'Tailwind CSS',
+      'NetworkX',
+      'SQLAlchemy',
+      'Recharts',
+    ],
+    metrics: [
+      '5-factor risk scoring engine',
+      'Blast-radius circuit breaker',
+      'AI agent behavioral monitoring',
+      '66 passing test cases',
+    ],
+    problem:
+      'Existing IAM tools were never built to understand AI agent behavior, blast radius, or behavioral baselines for automated identities. As organizations deploy agents at scale, a growing share of identities are non-human and effectively ungoverned.',
+    users:
+      'Built for security and platform teams who need to govern both human and machine identities, including the AI agents now operating inside production systems.',
+    constraints: [
+      'Auto-remediation cannot break legitimate access, so enforcement needs blast-radius gates and protected tags.',
+      'AI agents require identity-aware signals such as prompt tracking, tool allowlisting, and delegation chains.',
+      'Every automated action must be auditable and reversible.',
+    ],
+    approach: [
+      'Built a four-layer pipeline: ingestion from AWS IAM, CloudTrail, Okta, Azure AD, and agent SDKs; processing via an identity graph and behavior engine; enforcement; and an API and dashboard layer.',
+      'Designed a 5-factor risk score combining permission blast radius, behavioral anomaly, staleness, association, and AI-specific factors.',
+      'Implemented a circuit breaker that delivers graduated, reversible responses with one-click rollback and full logging.',
+    ],
+    architectureFlow: [
+      'Identity sources and agent SDKs',
+      'Identity graph and behavior engine',
+      'Risk scoring',
+      'Circuit-breaker enforcement',
+      'FastAPI and React dashboard',
+    ],
+    challenges: [
+      'Modeling AI agents as identities with their own behavioral baselines and blast radius.',
+      'Making auto-remediation aggressive enough to matter but safe enough to trust in production.',
+      'Surfacing risk clearly through real-time KPIs without overwhelming the operator.',
+    ],
+    resultsTitle: 'Capabilities delivered',
+    results: [
+      'A Phase 1 MVP with working risk scoring, enforcement, and dashboard, seeded with 120 realistic identities.',
+      'Reversible, audited auto-remediation with protected tags and blast-radius gates.',
+      'Agent-aware monitoring (prompt hashing, tool allowlisting, delegation detection) in a market where almost no tooling secures agentic AI.',
+    ],
+  },
+  {
+    id: 'careguard',
+    title: 'CareGuard',
+    category: 'Agentic Healthcare AI',
+    short:
+      'AI-powered post-discharge care coordination system that calls patients, runs voice-based clinical assessments, and escalates urgent concerns to care teams to prevent readmissions.',
+    thumb: careGuardImg,
+    hero: careGuardImg,
+    links: [{ label: 'GitHub', href: 'https://github.com/nekhabose/Care-Guard' }],
+    tech: [
+      'Python 3.12',
+      'FastAPI',
+      'SQLAlchemy 2.0 async',
+      'Claude',
+      'Twilio ConversationRelay',
+      'Epic FHIR R4',
+      'PostgreSQL',
+      'AWS ECS Fargate',
+    ],
+    metrics: [
+      'Projected 94x ROI',
+      'Condition-specific care protocols',
+      'Three-tier clinical escalation',
+      'HIPAA-compliant by design',
+    ],
+    problem:
+      'Hospital readmissions are costly and often preventable, but care teams cannot manually call and assess every discharged patient during the critical recovery window.',
+    users:
+      'Designed for hospital care coordination teams and discharged patients recovering from conditions like heart failure, COPD, pneumonia, joint replacement, and cardiac events.',
+    constraints: [
+      'Clinical conversations and patient data demand strict HIPAA compliance, encryption, and audit logging.',
+      'Assessments must follow condition-specific clinical protocols, not generic prompts.',
+      'Urgent findings must escalate to humans fast and reliably.',
+    ],
+    approach: [
+      'Wired Epic EHR discharge webhooks (FHIR R4) into a risk-scoring intake layer that triggers AI-driven outreach.',
+      'Built agentic voice conversations over Twilio ConversationRelay, with clinical tools and a unified LLM interface backed by Claude.',
+      'Implemented a three-tier escalation system with SNS alerts and deployed on AWS ECS Fargate with KMS-encrypted PostgreSQL and CloudTrail auditing.',
+    ],
+    architectureFlow: [
+      'Epic FHIR discharge webhook',
+      'Risk scoring and intake',
+      'AI voice assessment with clinical tools',
+      'Three-tier escalation and alerts',
+      'Encrypted data and audit layer',
+    ],
+    challenges: [
+      'Keeping AI-led clinical conversations safe, on-protocol, and escalation-aware.',
+      'Maintaining full HIPAA compliance across voice, EHR, and data layers.',
+      'Designing escalation thresholds that catch urgent cases without alarm fatigue.',
+    ],
+    resultsTitle: 'Projected impact',
+    results: [
+      'For a 300-bed hospital with CHF patients: projected prevention of 4 to 5 readmissions monthly, preserving roughly $68,400 in revenue against about $720 in agent costs, a 94x ROI.',
+      'Condition-specific protocols across heart failure, COPD, pneumonia, hip and knee replacement, and AMI/CABG.',
+      'A compliant, auditable foundation for autonomous post-discharge care at scale.',
+    ],
+  },
+  {
+    id: 'agenthon',
+    title: 'Agenthon',
+    category: 'Multi-Agent Sales Automation',
+    short:
+      'Multi-agent system that automates the full sales engagement loop, from lead discovery and research to personalized outreach and reply tracking, through specialized cooperating agents.',
+    thumb: agenthonImg,
+    hero: agenthonImg,
+    links: [{ label: 'GitHub', href: 'https://github.com/nekhabose/Agenthon' }],
+    tech: [
+      'Next.js',
+      'TypeScript',
+      'Python',
+      'Drizzle ORM',
+      'PostgreSQL',
+      'Docker',
+      'Agent orchestration',
+    ],
+    metrics: [
+      'Four specialized agents',
+      'Automated lead discovery',
+      'Personalized outreach generation',
+      'Reply tracking and memory',
+    ],
+    problem:
+      'Sales teams lose time stitching together prospecting, research, outreach, and follow-up across disconnected tools, with most of the work being repetitive and rules-driven.',
+    users:
+      'Built for sales and growth teams who want to automate top-of-funnel engagement while keeping outreach personalized and trackable.',
+    constraints: [
+      'Each stage needs a different capability, so a single monolithic agent would be brittle.',
+      'Outreach has to feel personalized, not templated.',
+      'The system must retain context across the engagement lifecycle.',
+    ],
+    approach: [
+      'Decomposed the workflow into four specialized agents: lead discovery, research and analysis, personalized outreach generation, and reply tracking.',
+      'Built a modular full-stack architecture with a Next.js and TypeScript frontend and a Python backend, including dedicated memory and type-definition modules.',
+      'Used Drizzle ORM and Docker for a reproducible, containerized data and deployment layer.',
+    ],
+    architectureFlow: [
+      'Lead discovery agent',
+      'Research and analysis agent',
+      'Personalized outreach agent',
+      'Reply tracking agent',
+      'Shared memory and data layer',
+    ],
+    challenges: [
+      'Coordinating handoffs between agents without losing prospect context.',
+      'Generating outreach that is personalized rather than generic.',
+      'Designing a memory layer that keeps the engagement state coherent over time.',
+    ],
+    resultsTitle: 'Capabilities delivered',
+    results: [
+      'An end-to-end agentic pipeline that automates discovery, research, outreach, and reply tracking.',
+      'A modular architecture where each agent can be improved or swapped independently.',
+      'A practical template for applying multi-agent orchestration to real go-to-market workflows.',
+    ],
+  },
+  {
+    id: 'enterprise-rag-suite',
+    title: 'Enterprise RAG Suite',
+    category: 'Multi-Tenant RAG + Security',
+    short:
+      'Multi-tenant learning platform with role-based access control, strict tenant isolation, and AI tutoring powered by PostgreSQL pgvector, engineered with security as a first-class concern.',
+    thumb: ragSuiteImg,
+    hero: ragSuiteImg,
+    links: [{ label: 'GitHub', href: 'https://github.com/nekhabose/enterprise-rag-suite' }],
+    tech: [
+      'React',
+      'TypeScript',
+      'Vite',
+      'Node.js',
+      'Express',
+      'FastAPI',
+      'Python 3.11',
+      'PostgreSQL',
+      'pgvector',
+      'Docker',
+    ],
+    metrics: [
+      '6 roles, 28 granular permissions',
+      'Middleware-enforced tenant isolation',
+      'Auditable admin impersonation',
+      'AI tutoring and quiz generation',
+    ],
+    problem:
+      'Enterprise learning platforms need AI tutoring across many tenants without leaking data between them, and without weak authorization opening the door to IDOR-class vulnerabilities.',
+    users:
+      'Built for three distinct portals: super admins, university and tenant admins, and end users, each with scoped permissions.',
+    constraints: [
+      'Tenant isolation must be enforced at the middleware layer, never trusting user-supplied tenant identifiers.',
+      'Authentication needs short-lived access tokens with rotating refresh tokens.',
+      'Every cross-tenant access path has to be closed against IDOR.',
+    ],
+    approach: [
+      'Built a three-tier system: React role-specific portals, a Node.js and Express API with JWT auth and RBAC middleware, and a FastAPI AI service for chat, embeddings, and quiz generation.',
+      'Stored vector embeddings in PostgreSQL 16 with pgvector for semantic search and AI tutoring.',
+      'Hardened the platform: tenant ID taken only from trusted JWT claims, all IDs validated against tenant scope, parameterized queries, rate limiting, and audited super-admin impersonation.',
+    ],
+    architectureFlow: [
+      'React role-based portals',
+      'Express API with RBAC middleware',
+      'FastAPI AI service',
+      'PostgreSQL with pgvector',
+      'Audit and rate-limit layer',
+    ],
+    challenges: [
+      'Enforcing isolation across six roles and global plus per-tenant scopes.',
+      'Preventing IDOR while still supporting admin impersonation for support.',
+      'Combining production-grade security with usable AI tutoring and quiz workflows.',
+    ],
+    resultsTitle: 'Capabilities delivered',
+    results: [
+      'A security-first multi-tenant RAG platform with 28 granular permissions across 6 roles.',
+      'Document ingestion, vector search, AI tutoring chat, and automated quiz generation.',
+      'IDOR-resistant authorization with audited impersonation and middleware-enforced isolation.',
+    ],
+  },
   {
     id: 'enterprise-ai-lms',
     title: 'Enterprise AI Learning Management System',
@@ -357,15 +595,23 @@ export const skillGroups = [
   },
   {
     title: 'Backend',
-    items: ['Node.js', 'Express', 'FastAPI', 'Java', 'Spring Boot', 'REST APIs', 'PostgreSQL', 'MongoDB'],
+    items: ['Node.js', 'Express', 'FastAPI', 'Java', 'Spring Boot', 'REST APIs', 'PostgreSQL', 'pgvector', 'MongoDB', 'Drizzle ORM'],
   },
   {
     title: 'AI and Agentic',
-    items: ['OpenAI', 'Groq', 'RAG systems', 'LangChain', 'LangGraph', 'LlamaIndex', 'Prompt orchestration'],
+    items: ['Claude', 'OpenAI', 'Groq', 'RAG systems', 'Multi-agent systems', 'LangChain', 'LangGraph', 'LlamaIndex', 'NetworkX', 'Voice AI (Twilio)', 'Prompt orchestration'],
   },
   {
     title: 'Cloud and DevOps',
-    items: ['GCP', 'AWS', 'Docker', 'Kubernetes', 'Nginx', 'Redis', 'CI/CD', 'GitHub Actions'],
+    items: ['GCP', 'AWS (ECS Fargate)', 'Docker', 'Kubernetes', 'Nginx', 'Redis', 'CI/CD', 'GitHub Actions'],
+  },
+  {
+    title: 'Security and Compliance',
+    items: ['RBAC', 'Multi-tenant isolation', 'JWT auth', 'IDOR prevention', 'HIPAA compliance', 'Audit logging', 'Identity risk scoring'],
+  },
+  {
+    title: 'Healthcare and Integrations',
+    items: ['Epic FHIR R4', 'OAuth 2.0', 'AWS IAM', 'Okta', 'Azure AD', 'CloudTrail', 'Webhook pipelines'],
   },
   {
     title: 'Data and ETL',

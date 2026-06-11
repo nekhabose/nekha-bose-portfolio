@@ -1,0 +1,57 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="rg-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070a12" />
+      <stop offset="50%" stop-color="#0c1330" />
+      <stop offset="100%" stop-color="#141a45" />
+    </linearGradient>
+    <radialGradient id="rg-glow" cx="0.5" cy="0.5" r="0.6">
+      <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#a78bfa" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="rg-ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#22d3ee" />
+    </linearGradient>
+    <linearGradient id="rg-doc" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1b2350" />
+      <stop offset="100%" stop-color="#0c1230" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#rg-bg)" />
+  <circle cx="340" cy="250" r="300" fill="#1f2363" opacity="0.4" />
+  <circle cx="1250" cy="800" r="320" fill="#152a5e" opacity="0.4" />
+  <circle cx="800" cy="470" r="430" fill="url(#rg-glow)" />
+
+  <!-- documents -->
+  <g>
+    <g transform="translate(250,360) rotate(-10)">
+      <rect width="220" height="290" rx="16" fill="url(#rg-doc)" stroke="#2d3a7a" stroke-width="4" />
+      <rect x="30" y="44" width="160" height="14" rx="7" fill="#5b6ad0" />
+      <rect x="30" y="84" width="130" height="14" rx="7" fill="#3c4a96" />
+      <rect x="30" y="124" width="160" height="14" rx="7" fill="#3c4a96" />
+      <rect x="30" y="164" width="100" height="14" rx="7" fill="#3c4a96" />
+    </g>
+  </g>
+
+  <!-- vector grid -->
+  <g transform="translate(1150,360) rotate(8)">
+    <rect width="240" height="290" rx="16" fill="url(#rg-doc)" stroke="#2d3a7a" stroke-width="4" />
+    <g fill="#22d3ee" opacity="0.85">
+      <circle cx="50" cy="60" r="9"/><circle cx="120" cy="60" r="9"/><circle cx="190" cy="60" r="9"/>
+      <circle cx="50" cy="130" r="9"/><circle cx="120" cy="130" r="9"/><circle cx="190" cy="130" r="9"/>
+      <circle cx="50" cy="200" r="9"/><circle cx="120" cy="200" r="9"/><circle cx="190" cy="200" r="9"/>
+    </g>
+  </g>
+
+  <!-- retrieval ring -->
+  <g transform="translate(640,290)">
+    <circle cx="160" cy="180" r="180" fill="none" stroke="url(#rg-ring)" stroke-width="16" />
+    <circle cx="160" cy="180" r="140" fill="rgba(7,10,18,0.85)" stroke="#22305f" stroke-width="6" />
+    <text x="160" y="170" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="700" font-size="56" fill="#e0e7ff">RAG</text>
+    <text x="160" y="220" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="500" font-size="26" fill="#a5b4fc">pgvector</text>
+  </g>
+
+  <text x="800" y="860" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="700" font-size="60" fill="#e6e9ff">MULTI-TENANT RAG</text>
+  <text x="800" y="918" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="500" font-size="30" fill="#a5b4fc" opacity="0.85">RBAC · 28 PERMISSIONS · TENANT ISOLATION</text>
+</svg>

@@ -479,4 +479,110 @@ export const blogPosts: BlogPost[] = [
 <p>The lesson of Autoresearch isn't "AI will replace ML researchers." It's that a tireless agent running a tight experiment loop will out-search a human in any space where you've defined a good objective and made evaluation cheap. The competitive edge moves from <em>having good ideas</em> to <em>building the harness that lets a machine test thousands of them.</em> That's an engineering problem, and it's one worth getting good at now.</p>
     `.trim(),
   },
+  {
+    slug: 'wwdc-2026-apple-ai-extensions-distribution-layer',
+    title: 'WWDC 2026: Apple Just Made AI Providers Swappable. Distribution Is the New Moat.',
+    date: '2026-06-10',
+    readTime: '6 min read',
+    tags: ['Apple', 'WWDC', 'AI Platforms', 'Claude', 'Strategy'],
+    description:
+      'Apple rebuilt Siri on a licensed Gemini model and shipped AI Extensions that let users pick ChatGPT, Gemini, or Claude as their system AI. The interesting part is not the keynote,it is what happens when the OS becomes the AI router.',
+    content: `
+<h2>What Apple Announced</h2>
+<p>At WWDC 2026, Tim Cook's final keynote before handing the company to John Ternus, Apple shipped the Siri rebuild everyone had been waiting years for. The new Siri runs on a custom 1.2-trillion-parameter Gemini model licensed from Google for roughly $1 billion a year, with a ChatGPT-style interface, a standalone app, personal context access, and on-screen awareness across iOS 27, macOS 27, and the rest of the 27-series releases.</p>
+<p>But the structurally interesting announcement was smaller: <strong>AI Extensions</strong>. Users can now choose ChatGPT, Gemini, or Claude as their preferred AI provider at the system level. Anthropic's Claude became a native option inside Apple Intelligence on day one,its first OS-level integration, with a potential reach of over two billion active devices.</p>
+
+<h2>The OS Is Now the AI Router</h2>
+<p>For years the assumption was that whoever had the best model would own the users. Apple just demonstrated the counter-position: whoever owns the device owns the default, and the default can be a menu. Apple does not need to win the model race. It needs to be the place where the model race is adjudicated,and it now collects strategic rent from Google for the Siri backbone while letting OpenAI and Anthropic compete for the extension slot.</p>
+<p>If even 5% of Apple's installed base flips their provider to Claude, that is on the order of 100 million users,roughly double Anthropic's current estimated user base, gained without Anthropic shipping a single consumer surface. Distribution, not capability, is the variable that moves first.</p>
+
+<h2>What This Means If You Build Apps</h2>
+<p>The system-level AI picker changes some assumptions for product engineers:</p>
+<ul>
+  <li><strong>Your app's AI features will be judged against the system AI.</strong> When the OS assistant can see the screen and act with personal context, an in-app chatbot that only knows your app's data feels smaller than it did last year. The bar for shipping your own assistant just went up.</li>
+  <li><strong>Provider-agnostic design stops being optional.</strong> Users now have a concept of "my AI." Apps that integrate with the system provider,whichever one the user chose,will feel native. Hardcoding one vendor into your UX will increasingly read as friction.</li>
+  <li><strong>Personal context APIs are the new platform surface.</strong> On-screen awareness and personal context access are OS capabilities now. The interesting apps in the next cycle will be the ones that expose their state to the system AI cleanly rather than building parallel assistants.</li>
+</ul>
+
+<h2>The Multi-Model Lesson for Backend Teams</h2>
+<p>Apple licensing Gemini for Siri while offering Claude and ChatGPT as extensions is the same architecture decision I push for in every production AI system: route by task, do not marry a vendor. Apple is running the biggest multi-provider deployment in history,one model for the system backbone, swappable models at the user preference layer. If the most vertically integrated company on earth decided not to bet on a single model, your platform team's "we standardized on one provider" decision deserves a second look.</p>
+
+<h2>The Takeaway</h2>
+<p>WWDC 2026 will be remembered for the Siri rebuild, but the durable change is that AI providers became a user preference, like a default browser. For engineers, the message is consistent with everything this year has taught: build provider-agnostic, integrate with the system layer where it exists, and assume the model behind any interface can change underneath you,because now, by design, it can.</p>
+    `.trim(),
+  },
+  {
+    slug: 'ai-regulation-deadlines-colorado-eu-ai-act-engineering',
+    title: 'The AI Compliance Clock Is Real Now: Colorado in 3 Weeks, the EU in 8',
+    date: '2026-06-11',
+    readTime: '7 min read',
+    tags: ['AI Governance', 'Regulation', 'EU AI Act', 'Compliance', 'Enterprise AI'],
+    description:
+      'The Colorado AI Act takes effect June 30 and full EU AI Act enforcement lands August 2 with penalties up to 7% of global turnover. This is no longer a legal-team problem,it defines engineering work: logging, evals, impact assessments, and disclosure surfaces.',
+    content: `
+<h2>Two Dates That Matter</h2>
+<p>Two regulatory deadlines are now close enough to touch. The <strong>Colorado Consumer Protections for Artificial Intelligence Act</strong> takes effect June 30, 2026,the first comprehensive US state AI law to actually arrive after years of proposals. <strong>Full EU AI Act enforcement</strong> follows on August 2, 2026, with penalties up to 35 million euros or 7% of global annual turnover, whichever is higher.</p>
+<p>Both target the same category: high-risk AI systems making or informing consequential decisions,employment, healthcare, financial services, education, housing, legal services, critical infrastructure. If your system scores a resume, ranks a loan application, or routes a patient, you are in scope somewhere.</p>
+
+<h2>Why Engineers Should Care, Specifically</h2>
+<p>Compliance documents get written by lawyers, but almost everything they attest to is produced by engineering. Walking through what these laws actually require, nearly every line item resolves to a technical artifact:</p>
+<ul>
+  <li><strong>Risk management programs</strong> require knowing what your model does at the edges,which means a real evaluation suite, not a demo notebook.</li>
+  <li><strong>Annual impact assessments</strong> require measuring outcomes across groups,which means logging inputs, outputs, and decisions with enough fidelity to analyze later.</li>
+  <li><strong>Disclosure obligations</strong> require the product to tell users an AI is involved and, in some cases, why it decided what it decided,which means explanation surfaces in the UI and decision traces behind them.</li>
+  <li><strong>The EU's transparency requirements for large general-purpose models</strong> (the 10^25 FLOP threshold) flow down to deployers,you need to know which foundation models sit in your stack and what their providers have published.</li>
+</ul>
+<p>None of this can be retrofitted in a sprint. If the logging does not exist, the impact assessment is fiction.</p>
+
+<h2>The Minimum Viable Compliance Stack</h2>
+<p>Having built agentic systems in regulated-adjacent domains, here is the engineering checklist I would run before June 30 if I had high-risk surface area:</p>
+<ul>
+  <li><strong>Inventory first.</strong> Every model call in production: which model, which provider, which feature, what decision it touches. Most teams discover AI features they forgot they shipped. You cannot assess what you have not enumerated.</li>
+  <li><strong>Decision logging with retention.</strong> For each consequential output: the input context, model and version, the output, and what the system did with it. Store it where an auditor could query it, not in stdout.</li>
+  <li><strong>An eval harness wired to deployment.</strong> Regression evals on every model or prompt change, including bias-relevant slices for in-scope use cases. The law calls it risk management; we call it CI for models.</li>
+  <li><strong>Human override paths.</strong> Both laws lean on human oversight for high-risk decisions. That is a product feature: a review queue, an appeal path, a kill switch per feature rather than per platform.</li>
+  <li><strong>Provider documentation on file.</strong> Model cards, system cards, training disclosures for every foundation model you deploy on. When the deployer obligations hit, "the vendor has a page about it" is your evidence base.</li>
+</ul>
+
+<h2>The Quiet Advantage</h2>
+<p>The uncomfortable truth in most organizations: the gap between "we deployed agents" and "we govern agents" is enormous, and these deadlines are the first external forcing function. But teams that already treat observability, evals, and decision traceability as table stakes,because that is just how you run production AI,will find compliance is mostly paperwork over infrastructure they already have. Teams that treated AI as a black box bolted onto the product are about to do eighteen months of work in eight weeks.</p>
+<p>Regulation is annoying until it is a moat. Enterprises buying AI systems are already asking vendors for exactly these artifacts. The engineering work the law forces is the same work that wins the security review.</p>
+
+<h2>The Takeaway</h2>
+<p>June 30 and August 2 are not legal abstractions,they are deadlines for logging, evals, model inventories, and override paths. If you are an engineer on a team with high-risk AI surface, the most valuable thing you can do this month is make the system observable enough that someone can honestly describe what it does. That was always the right engineering call. Now it is also the law.</p>
+    `.trim(),
+  },
+  {
+    slug: 'llm-pricing-war-market-share-routing-economics-2026',
+    title: 'The LLM Price War Is Here: What $1.50 GPT-5.5 and Subsidized Grok Mean for Your Architecture',
+    date: '2026-06-11',
+    readTime: '6 min read',
+    tags: ['LLM Economics', 'Model Routing', 'API Pricing', 'AI Engineering', 'Strategy'],
+    description:
+      'GPT-5.5 at $1.50 per million input tokens, Grok 4.3 at fifty cents, and frontier models within a few points of each other on capability. The market share charts are moving fast,and the engineering answer is routing, not loyalty.',
+    content: `
+<h2>The Numbers, Side by Side</h2>
+<p>The June 2026 API price sheet tells a story the 2024 version never could. GPT-5.5 sits at $1.50 input / $9 output per million tokens. Claude Sonnet 4.6 at $3 / $15, Claude Opus 4.8 at $5 / $25. Gemini 3.1 Pro at $2 / $12. And Grok 4.3 at $0.50 / $2,pricing that reflects SpaceX's capital reserves more than its unit economics, given xAI burned $14 billion in cash against $3.2 billion of revenue last year.</p>
+<p>Meanwhile the consumer market share chart is moving faster than at any point since ChatGPT launched: ChatGPT is down to 54.7% of chatbot traffic from 76.5% in early 2025, Gemini has doubled in six months to 27.4%, and Claude has grown 306% in a quarter to 8.2%,from 203 million web visits in January to 824 million in April.</p>
+
+<h2>What Changed: Capability Converged</h2>
+<p>Prices war when products commoditize. On the benchmarks that matter for most production workloads, the frontier models now sit within a few points of each other,Gemini 3.5 Flash actually outscores some premium-tier models on aggregate intelligence indexes while generating four times faster. When the cheap tier is good enough for 80% of your traffic, the expensive tier has to justify itself per-call, not per-brand.</p>
+<p>This is the dynamic cloud compute went through a decade ago. The winners of that era were not the teams loyal to one vendor,they were the teams whose architecture made vendors interchangeable.</p>
+
+<h2>Routing Is the Architecture Answer</h2>
+<p>In every production system I build now, model choice is a runtime decision, not a code-time one. The pattern that the current pricing makes mandatory:</p>
+<ul>
+  <li><strong>Classify the request before routing it.</strong> Extraction, classification, reformatting, simple Q&A go to the cheap tier. Multi-step reasoning, code generation on unfamiliar codebases, and high-stakes outputs go premium. A lightweight classifier or even heuristics on input shape gets you most of the way.</li>
+  <li><strong>Hold the eval line, not the vendor line.</strong> The gate for switching a workload to a cheaper model is your eval suite passing, nothing else. Without evals, every price-driven migration is a gamble; with them, it is a config change.</li>
+  <li><strong>Watch output pricing, not input.</strong> The $9 vs $25 output spread dominates cost for generation-heavy workloads. Long-form generation on a premium model is where bills explode quietly.</li>
+  <li><strong>Treat subsidized pricing as a spot market.</strong> Fifty-cent Grok tokens are real savings today and a repricing risk tomorrow. Take the discount for batch and non-critical paths, but never let a subsidized price become a load-bearing assumption.</li>
+</ul>
+
+<h2>The Second-Order Effect: Negotiating Power</h2>
+<p>The share shifts matter for engineers in one underrated way: procurement. When three providers have credible frontier models and visible momentum, enterprise pricing is negotiable in ways it was not when one vendor had 76% of the market. The teams with portable architectures,structured outputs, provider-agnostic tool definitions, MCP for integrations, evals as the migration gate,are the ones who can take the better offer. Portability is leverage, and leverage is now worth real money.</p>
+
+<h2>The Takeaway</h2>
+<p>The price war is good news if your architecture can exploit it and a trap if it cannot. The engineering posture for late 2026 is the same one I keep returning to: route by task, gate by evals, keep providers swappable, and let the market fight to serve your cheapest tier. Loyalty is for sports teams, not inference vendors.</p>
+    `.trim(),
+  },
 ];

@@ -140,4 +140,49 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+  <url>
+    <loc>https://nekhabose.com/blog/gemini-35-flash-when-the-cheap-tier-wins-on-agents</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nekhabose.com/blog/gpt-54-native-computer-use-agents-leave-the-api</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nekhabose.com/blog/karpathy-autoresearch-agents-that-improve-the-codebase</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nekhabose.com/blog/wwdc-2026-apple-ai-extensions-distribution-layer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nekhabose.com/blog/ai-regulation-deadlines-colorado-eu-ai-act-engineering</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nekhabose.com/blog/llm-pricing-war-market-share-routing-economics-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nekhabose.com/blog/fable-mythos-export-ban-resilience-architecture</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://nekhabose.com/blog/apple-siri-gemini-build-vs-buy-platform</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nekhabose.com/blog/ai-supply-chain-export-controls-open-weight-strategy</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 </urlset>

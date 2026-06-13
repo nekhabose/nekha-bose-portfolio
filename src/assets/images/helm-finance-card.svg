@@ -1,0 +1,61 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="hf-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#05080f" />
+      <stop offset="50%" stop-color="#0a1322" />
+      <stop offset="100%" stop-color="#0f2236" />
+    </linearGradient>
+    <radialGradient id="hf-glow" cx="0.5" cy="0.5" r="0.6">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="hf-ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#22d3a0" />
+    </linearGradient>
+    <linearGradient id="hf-bar" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#0e2a3f" />
+      <stop offset="100%" stop-color="#22d3a0" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#hf-bg)" />
+  <circle cx="320" cy="240" r="300" fill="#0f3a3a" opacity="0.3" />
+  <circle cx="1280" cy="820" r="320" fill="#163a63" opacity="0.3" />
+  <circle cx="800" cy="470" r="430" fill="url(#hf-glow)" />
+
+  <!-- ship's helm wheel -->
+  <g transform="translate(800,430)" stroke="url(#hf-ring)" fill="none">
+    <circle r="150" stroke-width="14" />
+    <circle r="60" stroke-width="12" />
+    <circle r="22" fill="#22d3a0" stroke="none" />
+    <g stroke-width="12" stroke-linecap="round">
+      <line x1="0" y1="-150" x2="0" y2="-210" />
+      <line x1="0" y1="150" x2="0" y2="210" />
+      <line x1="-150" y1="0" x2="-210" y2="0" />
+      <line x1="150" y1="0" x2="210" y2="0" />
+      <line x1="-106" y1="-106" x2="-148" y2="-148" />
+      <line x1="106" y1="-106" x2="148" y2="-148" />
+      <line x1="-106" y1="106" x2="-148" y2="148" />
+      <line x1="106" y1="106" x2="148" y2="148" />
+    </g>
+    <g stroke-width="10" opacity="0.85">
+      <line x1="0" y1="0" x2="0" y2="-150" />
+      <line x1="0" y1="0" x2="0" y2="150" />
+      <line x1="0" y1="0" x2="-150" y2="0" />
+      <line x1="0" y1="0" x2="150" y2="0" />
+    </g>
+  </g>
+
+  <!-- cashflow bars -->
+  <g opacity="0.9">
+    <rect x="250" y="560" width="40" height="120" rx="8" fill="url(#hf-bar)" />
+    <rect x="320" y="510" width="40" height="170" rx="8" fill="url(#hf-bar)" />
+    <rect x="390" y="540" width="40" height="140" rx="8" fill="url(#hf-bar)" />
+    <rect x="1170" y="540" width="40" height="140" rx="8" fill="url(#hf-bar)" />
+    <rect x="1240" y="500" width="40" height="180" rx="8" fill="url(#hf-bar)" />
+    <rect x="1310" y="560" width="40" height="120" rx="8" fill="url(#hf-bar)" />
+  </g>
+
+  <text x="800" y="830" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="700" font-size="64" fill="#e6fbff">HELM FINANCE</text>
+  <text x="800" y="890" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="500" font-size="30" fill="#7dd3c8" opacity="0.85">FORECAST · COLLECT · RECONCILE</text>
+</svg>

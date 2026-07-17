@@ -1,0 +1,43 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cp-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#050f0b" />
+      <stop offset="50%" stop-color="#082018" />
+      <stop offset="100%" stop-color="#0b3226" />
+    </linearGradient>
+    <radialGradient id="cp-glow" cx="0.5" cy="0.5" r="0.6">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#34d399" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="cp-ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6ee7b7" />
+      <stop offset="100%" stop-color="#22d3ee" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#cp-bg)" />
+  <circle cx="320" cy="240" r="300" fill="#0f4a3a" opacity="0.35" />
+  <circle cx="1260" cy="790" r="320" fill="#0f4055" opacity="0.3" />
+  <circle cx="800" cy="470" r="430" fill="url(#cp-glow)" />
+
+  <!-- sound waves -->
+  <g fill="none" stroke="url(#cp-ring)" stroke-width="10" stroke-linecap="round" opacity="0.8">
+    <path d="M1060 340 A130 130 0 0 1 1060 560" />
+    <path d="M1130 300 A200 200 0 0 1 1130 600" />
+    <path d="M540 340 A130 130 0 0 0 540 560" />
+  </g>
+
+  <!-- phone handset -->
+  <g transform="translate(690,320)">
+    <path d="M60 20 C40 20 20 40 20 70 C20 240 120 340 290 340 C320 340 340 320 340 300 L340 250 C340 235 330 222 315 218 L250 200 C238 197 225 201 217 210 L195 235 C150 210 130 190 105 145 L130 123 C139 115 143 102 140 90 L122 25 C118 10 105 0 90 0 L60 20 Z"
+          fill="#0c3a2c" stroke="url(#cp-ring)" stroke-width="12" stroke-linejoin="round" />
+  </g>
+
+  <!-- check badge -->
+  <g transform="translate(300,340)">
+    <circle r="60" fill="#0c3a2c" stroke="#6ee7b7" stroke-width="10" />
+    <path d="M-28 4 L-8 26 L30 -20" fill="none" stroke="#6ee7b7" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+
+  <text x="800" y="830" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="700" font-size="64" fill="#e6fff5">CALL PROOF</text>
+  <text x="800" y="890" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="500" font-size="30" fill="#6ee7b7" opacity="0.85">BOUNDED INBOUND VOICE AGENT</text>
+</svg>

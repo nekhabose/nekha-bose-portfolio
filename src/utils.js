@@ -13,15 +13,18 @@ const careGuardImg = new URL('./assets/images/careguard-card.svg', import.meta.u
 const agenthonImg = new URL('./assets/images/agenthon-card.svg', import.meta.url).href;
 const ragSuiteImg = new URL('./assets/images/rag-suite-card.svg', import.meta.url).href;
 const helmFinanceImg = new URL('./assets/images/helm-finance-card.svg', import.meta.url).href;
+const clinaraImg = new URL('./assets/images/clinara-card.svg', import.meta.url).href;
+const relaygridImg = new URL('./assets/images/relaygrid-card.svg', import.meta.url).href;
+const callproofImg = new URL('./assets/images/callproof-card.svg', import.meta.url).href;
 
 export const profile = {
   name: 'Nekha Bose',
-  title: 'Senior Software Engineer | Full-Stack | AI & Agentic Systems | Cloud Architecture',
+  title: 'Founding Engineer | Full-Stack | Agentic AI & LLM Systems | Cloud Architecture',
   summary:
-    'High-impact full-stack engineer building AI, RAG, and cloud-native products with measurable business outcomes. I lead cross-functional teams, design enterprise-grade systems, and translate product goals into scalable delivery.',
+    'Founding engineer with 6+ years shipping production agentic AI for Fortune 100 clients and high-growth startups. I build governed AI, where deterministic, versioned logic owns every decision and language models assist only where they are safe, under human-in-the-loop approval, policy-gated actions, and audit-grade traceability.',
   about:
-    'I build resilient product platforms across React, TypeScript, Node.js, FastAPI, and cloud infrastructure. My recent work spans AI recommendation systems, retrieval-augmented workflows, multi-tenant platform design, and high-scale API delivery, with a focus on shipping reliable systems that improve velocity, engagement, and operational clarity.',
-  location: 'Chicago, IL',
+    'I lead architecture and delivery of production AI platforms across React, TypeScript, Python, FastAPI, AWS, and GCP. I built a four-service AI platform at BreatheIT and migrated Nike supply-chain tooling to a lakehouse processing 50+ million records a day. My focus is governed AI: agentic and multi-agent systems where deterministic logic makes the decisions, the model assists only where it is safe, and every action is policy-gated, auditable, and reversible.',
+  location: 'San Francisco Bay Area',
   email: 'nekhabose1998@gmail.com',
   phone: '+1 312-874-9702',
   linkedin: 'https://www.linkedin.com/in/nekha-bose',
@@ -29,53 +32,54 @@ export const profile = {
   site: 'https://nekhabose.com',
   resumeFile: 'nekhaBoseResume.pdf',
   focusAreas: [
-    'AI and agentic product delivery',
-    'Cloud-native backend architecture',
-    'Enterprise full-stack systems',
-    'Engineering leadership and execution',
+    'Agentic and multi-agent AI delivery',
+    'Human-in-the-loop and policy-gated automation',
+    'RAG, retrieval, and AI governance',
+    'Cloud architecture and event-driven data systems',
   ],
   heroMetrics: [
-    { value: '6+', label: 'Years enterprise delivery' },
-    { value: '10M+', label: 'Users on shipped platforms' },
-    { value: '40%', label: 'Avg. performance gains' },
+    { value: '6+', label: 'Years shipping production AI' },
+    { value: '50M+', label: 'Records/day at Nike scale' },
+    { value: '0 to launch', label: 'Ultopia in 4 months' },
     { value: 'Fortune 100', label: 'Client tier' },
   ],
   achievements: [
-    'Led 15+ engineers across product and platform delivery.',
-    'Improved rollout speed by 30 percent through tighter Agile execution.',
-    'Lifted product engagement by 12 percent with A/B-tested UI improvements.',
-    'Delivered ETL redesigns that cut processing time by 40 percent.',
+    'Founding engineer for Ultopia, taken from zero to App Store launch in 4 months.',
+    'Designed a Claude-powered agent layer with prompt caching that cut token cost 60 percent.',
+    'Migrated Nike supply-chain tooling to a lakehouse, cutting refresh latency 60 percent.',
+    'Led 7 engineers on a weekly production cadence across architecture, review, and release.',
   ],
 };
 
 export const experiences = [
   {
     id: 'breatheit',
-    company: 'BreatheIT Inc.',
-    role: 'Lead Software Developer',
+    company: 'BreatheIT',
+    role: 'Founding Engineer',
     period: 'Dec 2024 - Present',
-    location: 'Chicago, IL (Hybrid)',
-    metrics: ['150+ APIs on GCP', '75+ PostgreSQL schemas', '30% faster rollout', '12% engagement lift'],
+    location: 'Remote',
+    metrics: ['0 to launch in 4 months', '4 deployable services', '60% lower token cost', '31 native mobile screens'],
     bullets: [
-      'Lead engineering for an AI-powered lifestyle platform spanning a Node.js and TypeScript backend, React portal, and React Native mobile apps.',
-      'Built FastAPI recommendation services across seven life disciplines using OpenAI and Groq to deliver personalized guidance flows.',
-      'Integrated Google Maps, YouTube, and Amazon services into core product journeys to expand utility and retention.',
-      'Scaled the platform with 75+ PostgreSQL schemas, 150+ production APIs on GCP, and Docker, Nginx, and Redis rate limiting.',
-      'Led 15+ engineers in Agile delivery, improving rollout speed by 30 percent and increasing engagement by 12 percent through A/B-tested UI updates.',
+      'Architected and shipped Ultopia, a production lifestyle-intelligence platform spanning four deployable services on a single PostgreSQL source of truth with Redis WebSocket fan-out, taking it from zero to App Store launch in 4 months and reaching thousands of users across client and internal deployments.',
+      'Designed a Claude-powered agent layer, one concierge orchestrating seven discipline specialists over a streaming tool-use loop with prompt caching that cut token cost 60 percent, under a hard human-in-the-loop invariant so no action writes without user confirmation.',
+      'Built an event-sourced metric store feeding two scoring engines, a cold-start benchmark scorer and an adaptive personal scorer that weights leading signals over lagging outcomes, cut over from shadow to live across tens of thousands of user records with zero scoring regressions.',
+      'Built a provider-integration framework spanning 75 providers across finance, health, wearables, and social, each normalized into canonical metrics through thin config and pure mappers across six auth patterns including SSRF-guarded self-host.',
+      'Hardened the platform with AES-256-GCM encryption at rest, JWT auth with refresh and blacklist, signed OAuth state, per-key rate limiting, and an append-only audit log, with graceful degradation on every external dependency.',
+      'Led 7 engineers across architecture, code review, and release on a weekly production cadence, delivering 31 native mobile screens and a shared PWA on one typed API layer.',
     ],
     tech: [
+      'Claude',
+      'Anthropic SDK',
       'Node.js',
       'TypeScript',
-      'React',
       'React Native',
       'FastAPI',
-      'OpenAI',
-      'Groq',
       'PostgreSQL',
+      'Redis',
+      'WebSockets',
       'GCP',
       'Docker',
-      'Nginx',
-      'Redis',
+      'Event sourcing',
     ],
   },
   {
@@ -83,37 +87,36 @@ export const experiences = [
     company: 'Infosys Limited',
     role: 'Senior Software Engineer',
     period: 'Mar 2021 - Dec 2023',
-    location: 'Nike account, remote',
-    metrics: ['10M+ users', '40% faster ETL', '30% faster retrieval', '20% retention lift'],
+    location: 'On-site, India · Enterprise client accounts',
+    metrics: ['50M+ records/day', '60% lower refresh latency', '30% lower compute cost', 'Fortune 100 clients'],
     bullets: [
-      'Delivered a Java Spring Boot and React e-commerce platform at scale for 10M+ users using Docker and Kubernetes.',
-      'Improved MongoDB and PostgreSQL performance to reduce response times and support a smoother high-volume user experience.',
-      'Redesigned ETL pipelines for Nike with Autosys, Airflow, and AWS, cutting processing time by 40 percent and improving retrieval speed by 30 percent.',
-      'Built Tableau dashboards that helped stakeholders track business performance and act faster on operational signals.',
+      'Delivered production data and platform engineering for multiple Fortune 100 clients, including Nike.',
+      'Migrated Nike legacy supply-chain tooling to an Airflow-orchestrated AWS lakehouse processing 50+ million records a day, cutting refresh latency 60 percent and compute cost 30 percent by replacing a slow legacy batch cycle with near-real-time refresh every one to two hours.',
+      'Built the ingestion path streaming source events into S3 through transformation, staging, and consumption layers so downstream users always queried clean, near-real-time data.',
+      'Engineered the transformation layer to filter multi-region source data to US-relevant records and segregate freight, shipments, and profiles into separate domains with quality checks before promotion.',
+      'Tuned PostgreSQL query paths and built Tableau dashboards that gave supply-chain stakeholders faster, clearer operational signal for freight and shipment decisions.',
     ],
     tech: [
-      'Java',
-      'Spring Boot',
-      'React',
-      'Docker',
-      'Kubernetes',
-      'MongoDB',
-      'PostgreSQL',
-      'Autosys',
       'Airflow',
       'AWS',
+      'S3',
+      'Lakehouse',
+      'PostgreSQL',
       'Tableau',
+      'ETL',
+      'Data pipelines',
+      'Query optimization',
     ],
   },
   {
     id: 'freelance',
-    company: 'Freelancer',
+    company: 'Freelance',
     role: 'Software Engineer',
     period: 'Oct 2018 - Mar 2021',
     location: 'Remote',
-    metrics: ['End-to-end delivery', 'Vendor consulting', 'Design to deployment'],
+    metrics: ['5+ clients', 'End-to-end delivery', 'Architecture to release'],
     bullets: [
-      'Delivered end-to-end web and product builds for multiple vendors, from discovery and scoping through deployment and support.',
+      'Delivered end-to-end web and product builds for 5+ clients, owning architecture, frontend, API integration, and production readiness from scoping through release.',
       'Owned architecture choices, front-end implementation, API integration, and production readiness for client-facing applications.',
       'Partnered directly with stakeholders to translate goals into scoped roadmaps, faster feedback cycles, and stable releases.',
     ],
@@ -246,6 +249,179 @@ export const projects = [
       'A Phase 1 MVP with working risk scoring, enforcement, and dashboard, seeded with 120 realistic identities.',
       'Reversible, audited auto-remediation with protected tags and blast-radius gates.',
       'Agent-aware monitoring (prompt hashing, tool allowlisting, delegation detection) in a market where almost no tooling secures agentic AI.',
+    ],
+  },
+  {
+    id: 'clinara-healthos',
+    title: 'Clinara HealthOS',
+    category: 'Governed Clinical-Workflow Intelligence',
+    short:
+      'Governed clinical-workflow intelligence platform where deterministic, versioned logic makes every clinical decision and the LLM only summarizes, drafts, and translates around it.',
+    thumb: clinaraImg,
+    hero: clinaraImg,
+    links: [{ label: 'GitHub', href: 'https://github.com/nekhabose/clinara-healthos' }],
+    tech: [
+      'Python',
+      'FastAPI',
+      'PostgreSQL',
+      'Claude',
+      'Transactional outbox',
+      'Event-driven',
+      'Multi-tenant RLS',
+      'Immutable audit',
+    ],
+    metrics: [
+      'Deterministic logic decides, LLM assists',
+      'Critical values bypass queues',
+      'No silent event loss',
+      'Clinician rule studio',
+    ],
+    problem:
+      'Clinicians drown in result review, refill approvals, and patient-portal messages. Existing AI triage tools either stay shallow to stay safe, or let a language model make clinical judgments it cannot be trusted to make, mislabeling a critical potassium value, silently dropping a message, or inventing reassurance that is not warranted. In healthcare, a plausible-but-wrong automated action is worse than no automation at all.',
+    users:
+      'Built for health systems and clinical teams handling inbound lab and diagnostic results, prescription refills, and patient messages, with strict tenant isolation across organizations.',
+    constraints: [
+      'The clinical decision must exist before the LLM is ever called; the model never chooses classification, priority, thresholds, or actions.',
+      'Nothing can disappear silently; every inbound event is processed, parked in a visible queue, or escalated, enforced structurally by a transactional outbox.',
+      'Critical values must bypass queues and cannot be weakened by client or clinician configuration.',
+    ],
+    approach: [
+      'Built a single governed pipeline for every module: ingest, normalize to a canonical model, patient-match, snapshot an immutable context, evaluate a deterministic versioned protocol, then let the LLM assist only with summary, draft, and translation.',
+      'Enforced a hard safety floor: a red-flag detector can only raise urgency, never lower it, and unsupported units block interpretation rather than guessing.',
+      'Backed it with a transactional outbox, immutable audit, and tenant isolation, plus a clinician rule studio to author, simulate, shadow-deploy, and roll back logic without an engineering release.',
+    ],
+    architectureFlow: [
+      'Ingest and normalize to canonical model',
+      'Patient match and immutable snapshot',
+      'Deterministic versioned protocol decision',
+      'LLM assists (summarize, draft, translate)',
+      'Safety gate, human review, and write-back',
+    ],
+    challenges: [
+      'Keeping every clinical decision deterministic and auditable while still using LLMs for communication.',
+      'Guaranteeing no inbound event is ever silently dropped across results, refills, and messages.',
+      'Letting clinicians change rules safely without shipping code, via simulate and shadow-deploy.',
+    ],
+    resultsTitle: 'Capabilities delivered',
+    results: [
+      'A governed decision pipeline that would still produce a safe, complete clinical outcome even with the LLM removed entirely.',
+      'Results, refill, and patient-message intelligence with critical-value protection and controlled-substance handling.',
+      'A clinician rule studio with author, simulate, shadow-deploy, and rollback, backed by immutable audit and tenant isolation.',
+    ],
+  },
+  {
+    id: 'relaygrid-ai',
+    title: 'RelayGrid AI',
+    category: 'AI-Native Freight Marketplace',
+    short:
+      'AI-native freight operations and two-sided marketplace where AI agents interpret and propose while domain services validate and execute, built on an event-driven, multi-tenant NestJS and Drizzle monorepo.',
+    thumb: relaygridImg,
+    hero: relaygridImg,
+    links: [{ label: 'GitHub', href: 'https://github.com/nekhabose/RelayGrid-AI' }],
+    tech: [
+      'TypeScript',
+      'NestJS',
+      'Drizzle ORM',
+      'PostgreSQL',
+      'Temporal',
+      'Turborepo',
+      'Event-driven',
+      'Ports and adapters',
+    ],
+    metrics: [
+      'Five delivery phases',
+      'Double-booking-safe workflows',
+      'Transactional outbox and idempotency',
+      'SSO, SCIM 2.0, and EDI X12',
+    ],
+    problem:
+      'Freight brokerage and carrier dispatch run on brittle, disconnected tooling where double-booking, dropped tracking events, and manual reconciliation cost money, and where naive AI automation would put transactional truth inside a model prompt.',
+    users:
+      'Built for freight brokers, carrier dispatchers, and drivers across a two-sided marketplace, up to enterprise shippers needing SSO, SCIM, and EDI integration.',
+    constraints: [
+      'Transactional truth can never live in a prompt or model output; AI agents interpret and propose, domain services validate and execute.',
+      'Booking and cover-load flows must be double-booking-safe under concurrency.',
+      'Everything must be multi-tenant, event-driven, observable, and auditable, with no silent event loss.',
+    ],
+    approach: [
+      'Structured a pnpm and Turborepo monorepo on ports and adapters, so business logic depends only on interfaces and in-memory backends swap for Postgres, SQS, and Temporal without touching feature code.',
+      'Delivered five phases, from broker-side load coverage and matching to TMS tracking, carrier dispatch, a two-sided marketplace with fraud and risk scoring, and an enterprise platform.',
+      'Hardened the skeleton with durable Postgres and row-level security, real JWT auth, real Temporal execution, and a transactional outbox with relay, dead-lettering, and database-enforced idempotency.',
+    ],
+    architectureFlow: [
+      'Contracts, ports, and event envelope',
+      'Pure domain logic (broker, carrier, marketplace)',
+      'Temporal workflows and transactional outbox',
+      'Postgres with RLS and idempotency',
+      'Enterprise identity, EDI, and audit',
+    ],
+    challenges: [
+      'Keeping AI proposals strictly separate from deterministic transactional execution.',
+      'Making booking and re-cover workflows safe under concurrency and partial failure.',
+      'Layering enterprise identity, EDI translation, and BYOK encryption onto the core cleanly.',
+    ],
+    resultsTitle: 'Capabilities delivered',
+    results: [
+      'An event-driven freight platform with double-booking-safe booking, deterministic exception handling, and no silent event loss.',
+      'A two-sided marketplace with deterministic fraud verification, a nine-component risk score, and human-decided review cases.',
+      'An enterprise layer with SSO/SAML/OIDC, SCIM 2.0, advanced RBAC, ANSI X12 EDI, and customer-managed keys.',
+    ],
+  },
+  {
+    id: 'call-proof',
+    title: 'Call Proof',
+    category: 'Bounded Inbound Voice Agent',
+    short:
+      'Inbound-call voice agent for US home-services contractors that captures and books every job through a deterministic state machine, then keeps score on its own booking accuracy.',
+    thumb: callproofImg,
+    hero: callproofImg,
+    links: [{ label: 'GitHub', href: 'https://github.com/nekhabose/Voice-agent-Call-proof' }],
+    tech: [
+      'TypeScript',
+      'Voice AI',
+      'State machine',
+      'Housecall Pro',
+      'Jobber',
+      'ASR and LLM',
+      'Vitest',
+    ],
+    metrics: [
+      '1047 passing tests, 99.3% coverage',
+      '1.00 emergency recall',
+      'Books into Housecall Pro and Jobber',
+      'Self-scored booking accuracy',
+    ],
+    problem:
+      'When a homeowner calls a plumber, HVAC shop, or electrician and nobody picks up, that missed call is a lost job worth hundreds of dollars. But the best ASR-to-LLM pipeline fills tool-call parameters correctly only about 60 percent of the time, and multi-step workflows collapse to 5 to 15 percent, so an open-ended voice agent walks straight into a wall.',
+    users:
+      'Built for US home-services contractors, plumbers, HVAC shops, and electricians, who lose revenue on every missed inbound call.',
+    constraints: [
+      'The conversation is bounded: name, address, problem, urgency, and time window, a five-field form, not an open-ended dialogue.',
+      'The model must never plan or chain tool calls; code advances a state machine on validated slots.',
+      'Emergencies, gas leaks, fire, carbon monoxide, or danger, must warm-transfer to a human within a single turn.',
+    ],
+    approach: [
+      'Drove the whole call with a deterministic state machine that extracts one validated field per turn instead of asking the model to orchestrate tools.',
+      'Booked the job into the contractor’s existing CRM, Housecall Pro or Jobber, as a deterministic transaction with rollback after the call ends.',
+      'Ran a deterministic emergency classifier that never asks a model for permission, and recorded every booking the contractor later corrects as a labeled failure to publish real reliability.',
+    ],
+    architectureFlow: [
+      'Inbound call and ASR',
+      'State machine extracts one validated slot per turn',
+      'Deterministic emergency classifier and warm transfer',
+      'Post-call booking transaction with rollback',
+      'Self-scoring and published accuracy',
+    ],
+    challenges: [
+      'Getting reliable bookings on models that fail the open-ended voice benchmark.',
+      'Guaranteeing emergencies escalate to a human within a single turn.',
+      'Measuring and publishing real booking accuracy instead of asserting it.',
+    ],
+    resultsTitle: 'Capabilities delivered',
+    results: [
+      'A bounded voice agent that answers missed calls and books jobs reliably where general agents collapse.',
+      'A 1.00-recall emergency classifier that warm-transfers danger cases without asking a model for permission.',
+      '1047 passing tests at 99.3 percent coverage, with self-scored, publishable booking accuracy per shop.',
     ],
   },
   {
@@ -650,52 +826,52 @@ export const projects = [
 
 export const skillGroups = [
   {
+    title: 'AI and Agentic Systems',
+    items: ['Claude and Anthropic SDK', 'OpenAI', 'Gemini', 'Model Context Protocol (MCP)', 'Multi-agent orchestration', 'LangGraph', 'OpenAI Agents SDK', 'AutoGen', 'CrewAI', 'LangChain', 'LlamaIndex', 'Tool use and function calling', 'Structured outputs', 'Prompt caching', 'Model routing and fallback', 'Agent memory', 'Bounded autonomy', 'Human-in-the-loop'],
+  },
+  {
+    title: 'Retrieval and RAG',
+    items: ['Hybrid retrieval', 'Reranking', 'GraphRAG', 'pgvector', 'Embeddings', 'Semantic search', 'Context engineering'],
+  },
+  {
+    title: 'LLM Ops, Eval and Safety',
+    items: ['Eval-driven development (Braintrust, LangSmith, Ragas)', 'LLM observability (Langfuse, Arize Phoenix)', 'OpenTelemetry GenAI', 'Guardrails', 'Prompt-injection defense (OWASP LLM Top 10)', 'Red-teaming', 'Cost and latency optimization'],
+  },
+  {
+    title: 'Languages',
+    items: ['TypeScript', 'JavaScript', 'Python', 'Go', 'SQL'],
+  },
+  {
     title: 'Frontend',
-    items: ['React', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'React Native', 'Responsive UI', 'Accessibility'],
+    items: ['React 19', 'React Native', 'Next.js (App Router, Server Components)', 'Expo', 'Vite', 'Tailwind CSS', 'WebSockets and SSE streaming', 'Accessible and responsive design'],
   },
   {
-    title: 'Backend',
-    items: ['Node.js', 'Express', 'FastAPI', 'Java', 'Spring Boot', 'REST APIs', 'Pydantic', 'PostgreSQL', 'pgvector', 'MongoDB', 'Drizzle ORM'],
+    title: 'Backend and APIs',
+    items: ['Node.js', 'Express', 'NestJS', 'FastAPI', 'REST', 'Event-driven APIs', 'Async SQLAlchemy', 'Drizzle ORM', 'Prisma', 'Pydantic', 'Zod', 'Ports and adapters'],
   },
   {
-    title: 'AI and Agentic',
-    items: ['Claude', 'OpenAI', 'Groq', 'RAG systems', 'Multi-agent systems', 'LangChain', 'LangGraph', 'LlamaIndex', 'NetworkX', 'Voice AI (Twilio)', 'Human-in-the-loop', 'Policy engines', 'Bounded autonomy', 'Prompt orchestration'],
+    title: 'Data and Streaming',
+    items: ['PostgreSQL', 'pgvector', 'TimescaleDB', 'MongoDB', 'Redis', 'NATS', 'Event sourcing', 'Transactional outbox', 'Airflow', 'Tableau', 'Query optimization'],
   },
   {
     title: 'Cloud and DevOps',
-    items: ['GCP', 'AWS (ECS Fargate)', 'Docker', 'Kubernetes', 'Nginx', 'Redis', 'CI/CD', 'GitHub Actions'],
+    items: ['AWS (ECS Fargate, RDS, S3, SQS, SNS, KMS, CloudTrail, IAM)', 'GCP', 'Docker', 'Kubernetes', 'Temporal', 'CI/CD', 'GitHub Actions', 'OpenTelemetry', 'Playwright', 'Vitest'],
   },
   {
     title: 'Security and Compliance',
-    items: ['RBAC', 'Multi-tenant isolation', 'JWT auth', 'IDOR prevention', 'HIPAA compliance', 'Audit logging', 'Identity risk scoring'],
-  },
-  {
-    title: 'Healthcare and Fintech Integrations',
-    items: ['Epic FHIR R4', 'OAuth 2.0', 'AWS IAM', 'Okta', 'Azure AD', 'CloudTrail', 'Webhook pipelines', 'Plaid', 'Stripe', 'QuickBooks Online', 'Gusto'],
-  },
-  {
-    title: 'Data and ETL',
-    items: ['Airflow', 'Autosys', 'Tableau', 'Data pipelines', 'Query optimization', 'Analytics reporting'],
-  },
-  {
-    title: 'Testing and Methods',
-    items: ['Postman', 'pytest', 'A/B testing', 'Agile', 'Scrum', 'API validation', 'Production rollout discipline'],
-  },
-  {
-    title: 'Design and Collaboration',
-    items: ['Product discovery', 'Figma collaboration', 'Stakeholder alignment', 'Mentorship', 'Technical leadership'],
+    items: ['Multi-tenant isolation (Postgres RLS)', 'RBAC', 'SSO (SAML, OIDC)', 'SCIM 2.0', 'JWT with refresh and blacklist', 'OAuth 2.0 and OAuth1', 'AES-256-GCM at rest', 'BYOK', 'SSRF and IDOR defense', 'Immutable audit logging', 'HIPAA-eligible design'],
   },
 ];
 
 export const education = [
   {
     degree: 'MS, Information Technology and Management',
-    school: 'Illinois Institute of Technology',
-    meta: 'GPA 3.90 / 4.0',
+    school: 'Illinois Institute of Technology, Chicago, IL',
+    meta: 'Jan 2024 - Dec 2025 · GPA 3.90 / 4.0',
   },
   {
     degree: 'B.Tech, Information Technology',
-    school: 'APJ Abdul Kalam Technological University',
+    school: 'APJ Abdul Kalam Technological University, Kerala, India',
     meta: '',
   },
 ];

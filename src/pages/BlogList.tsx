@@ -27,7 +27,7 @@ const BlogList: React.FC = () => {
       </p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-        {blogPosts.map((post) => (
+        {[...blogPosts].sort((a, b) => b.date.localeCompare(a.date)).map((post) => (
           <Link
             key={post.slug}
             to={`/blog/${post.slug}`}

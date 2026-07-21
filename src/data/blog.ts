@@ -695,4 +695,141 @@ export const blogPosts: BlogPost[] = [
 <p>The era when "we use the best model" was a complete description of an AI strategy is over. The best model can be recalled by directive, repriced by a subsidized competitor, or fenced off by your deployment geography. The orgs that stay resilient through 2026 will be the ones that treat model sourcing with the same rigor a serious manufacturer treats a critical component: tiered by criticality, diversified across jurisdiction, with a self-host capability held in reserve and evals as the universal switchover gate. Capability gets the headlines. Supply-chain discipline is what keeps you running the week the headline is about you.</p>
     `.trim(),
   },
+  {
+    slug: 'frontier-became-a-portfolio-best-fit-wins-2026',
+    title: 'The Frontier Became a Portfolio: Why "Best Model Wins" Is Now the Wrong Question',
+    date: '2026-07-17',
+    readTime: '8 min read',
+    tags: ['Model Strategy', 'Open Weights', 'Kimi K3', 'GPT-5.6', 'Architecture'],
+    description:
+      'In one week of July 2026, an open-weight Chinese model topped the frontend coding arena, OpenAI split GPT-5.6 into three price tiers, Anthropic undercut its own flagship, and Google delayed Gemini 3.5 Pro. The single-model bet is dead. Here is how to architect for a portfolio frontier.',
+    content: `
+<h2>A Week That Ended the Single-Model Bet</h2>
+<p>Watch what happened in a single week of July 2026. On July 16, Moonshot AI released Kimi K3, a 2.8-trillion-parameter open-weight model, and within hours it debuted at #1 on LMArena's Frontend Code Arena with 1,679 points,ahead of Claude Fable 5 (1,631), GPT-5.6 Sol (1,618), and GLM-5.2 (1,587). Days earlier, OpenAI had split GPT-5.6 into three models,Sol, Terra, and Luna,so you now choose a price-performance point, not a model. Anthropic shipped Sonnet 5 at near-Opus 4.8 quality for an introductory $2/$10 per million tokens, deliberately undercutting its own flagship. And Google quietly delayed the broad release of Gemini 3.5 Pro after internal testing showed it fell short on coding and complex reasoning.</p>
+<p>If you still walk into a planning meeting and ask "which model is the best, so we can standardize on it," you are asking a question the market stopped answering. The frontier is no longer a point. It is a portfolio.</p>
+
+<h2>The Shift: From "Best Model Wins" to "Best Fit Wins"</h2>
+<p>For two years, model selection was a leaderboard exercise. One model sat at the top of the benchmarks, you paid the premium, and you standardized. That era is over,not because the frontier stopped moving, but because it fanned out. The leader on frontend code is not the leader on long-horizon reasoning. The cheapest tier that clears your quality bar is not the same model your competitor picked. And an open-weight model you can self-host now sits in the same tier as the closed flagships for a large class of work.</p>
+<p>Kimi K3 is the clearest signal. It is not the single best model in the world,Fable 5 and GPT-5.6 Sol still edge it on pure reasoning. What changed is that an open model reached the frontier tier at all, and in the one arena that most directly tracks production coding value, it beat every closed flagship. When the best-fit model for a specific job can be free and self-hostable, "we pay for the best" stops being a strategy and starts being a line item you failed to interrogate.</p>
+
+<h2>What This Costs You If You Ignore It</h2>
+<p>Teams that hard-wired a single provider into their stack in 2024 are now carrying three hidden liabilities:</p>
+<ul>
+  <li><strong>Margin left on the table.</strong> If half your token volume is classification, extraction, and routing,work a mid-tier or open-weight model handles at a fraction of the cost,and you are running all of it through a frontier flagship, you are lighting money on fire every hour of every day.</li>
+  <li><strong>Concentration risk.</strong> One provider is one outage, one price change, one policy directive, and one roadmap away from dictating your economics. The Fable 5 export pause earlier this year showed that even your best model can be switched off by forces outside your contract.</li>
+  <li><strong>Architectural rigidity.</strong> If swapping models means a rewrite, you cannot capture any of this. The teams winning right now made the model a configuration value, not a structural assumption.</li>
+</ul>
+
+<h2>The Architecture: A Router, Not a Default</h2>
+<p>The engineering response to a portfolio frontier is a routing layer,a thin abstraction between your product and the models, where each class of request is directed to the model that best fits it on quality, latency, and cost. This is not exotic; it is the same instinct that put a load balancer in front of your web servers. Concretely:</p>
+<ul>
+  <li><strong>Classify requests by job, not by product surface.</strong> "Summarize this ticket" and "reason through this migration plan" are different jobs with different right-sized models, even if they live in the same feature.</li>
+  <li><strong>Route on a policy you can change without deploying.</strong> Model choice per job class belongs in configuration, so you can shift traffic when a new tier ships or a price drops,which now happens monthly.</li>
+  <li><strong>Gate every model on the same eval suite.</strong> The only way to safely swap models is to have a battery of task-specific evals that any candidate must pass. Your evals are the switchover contract. Without them, every model change is a leap of faith.</li>
+  <li><strong>Keep a self-hostable option warm.</strong> With open weights now at the frontier tier, "prove we can run a capable model on our own infrastructure" moves from research project to standing capability,your hedge against price, policy, and availability shocks.</li>
+</ul>
+
+<h2>The Open-Weight Question Leaders Keep Getting Wrong</h2>
+<p>Executives tend to file open-weight models under "interesting for hobbyists." That framing is now a strategic blind spot. When a capable open model is free and improving every quarter, it resets the price-performance baseline your own costs are measured against,whether or not you ever deploy it. Even a US-centric enterprise that will not touch a Chinese model lineage for procurement or security reasons needs to know exactly where the open alternatives land on its own workloads, because that number is the honest denominator for every build-versus-buy and every vendor negotiation. Your evals should benchmark the open tier even if you never ship it.</p>
+
+<h2>What To Do Monday</h2>
+<p>You do not need a six-month platform initiative. You need to stop treating one model as an assumption. Start here:</p>
+<ul>
+  <li><strong>Inventory your token spend by job class.</strong> Most teams have never looked. You will almost certainly find a large share of volume running on a flagship it does not need.</li>
+  <li><strong>Stand up a routing seam,even a crude one.</strong> A single function that maps job class to model, backed by config, is enough to start capturing the option value.</li>
+  <li><strong>Build the eval suite before you need it.</strong> Task-specific evals are what let you move fast and safely when the next tier ships. They are the highest-leverage thing your team can build this quarter.</li>
+  <li><strong>Run one open-weight model through your evals this month.</strong> Not to deploy,to calibrate. You need to know where free lands on your work.</li>
+</ul>
+<p>The organizations that win the next year will not be the ones who picked the single best model. They will be the ones who built the seams to use whichever model is best-fit for each job,and who can re-route in an afternoon when the frontier moves again. Because it will move again. It moved four times last week.</p>
+    `.trim(),
+  },
+  {
+    slug: 'work-agent-arrives-chatgpt-work-claude-cowork-workflow-ownership',
+    title: 'The Work Agent Just Arrived. The Unit of Delivery Is No Longer the Task.',
+    date: '2026-07-15',
+    readTime: '7 min read',
+    tags: ['AI Agents', 'ChatGPT Work', 'Claude Cowork', 'Org Design', 'Enterprise AI'],
+    description:
+      'Within 48 hours in July 2026, Anthropic and OpenAI both shipped agents that own multi-hour, multi-step business workflows,not chat replies. Gartner says 40% of enterprise apps will embed agents by year-end, up from under 5%. The real disruption is not the demo. It is what it does to how work is structured.',
+    content: `
+<h2>Two Launches, 48 Hours Apart, One Signal</h2>
+<p>In early July 2026, the two labs setting the pace shipped the same idea within two days of each other. Anthropic expanded Claude Cowork,its agentic mode that plans and executes multi-step tasks autonomously, GA since April,to mobile and web. Two days later, on July 9, OpenAI launched ChatGPT Work on GPT-5.6: an agent that connects to Slack, Gmail, Google Drive, Salesforce and dozens more tools, breaks a goal into steps, stays on a project for hours, and returns a finished spreadsheet, slide deck, report, or small web app.</p>
+<p>When two competitors converge on the same product within 48 hours, it is not a coincidence,it is a category forming. And the category is not "a smarter chatbot." It is an agent that owns a workflow end to end. Gartner projects that 40% of enterprise applications will have embedded agents by the end of this year, up from under 5% in 2025. That is not a gradual adoption curve. That is a step change in what software is expected to do.</p>
+
+<h2>The Real Shift: The Unit of Delivery Changed</h2>
+<p>For three years, AI assistance operated at the level of the task. You wrote the prompt, it drafted the paragraph, you took it from there. The human held the workflow; the model helped with a step. Work agents invert that. You hand over the goal,"reconcile these three exports and produce the variance report",and the agent holds the workflow: gathering context across apps, sequencing the steps, running for hours, and returning a finished artifact.</p>
+<p>That inversion is the whole story. When the unit of delivery moves from "a helpful step" to "a completed workflow," the questions that matter stop being about prompt quality and start being about org design, review gates, and accountability. This is a management problem wearing a technology costume,and leaders who treat it as a tooling rollout will get the org design wrong.</p>
+
+<h2>What Breaks When Agents Own Workflows</h2>
+<p>The reliability patterns that made single-step AI safe do not automatically cover an agent that runs unattended for an hour across five systems. New failure modes show up:</p>
+<ul>
+  <li><strong>Silent, compounding error.</strong> A single wrong step early in a multi-hour chain propagates into a confident, finished, wrong deliverable. The output looks polished. That is exactly what makes it dangerous.</li>
+  <li><strong>Ambiguous accountability.</strong> When an agent sends the email, updates the CRM, and files the report, who signed off? If the answer is "no one looked," you have automated a liability, not a workflow.</li>
+  <li><strong>Access sprawl.</strong> An agent connected to Slack, Drive, Salesforce, and email holds a superset of one employee's reach across systems that were never designed to be operated by one autonomous actor. The blast radius of a bad instruction just grew.</li>
+  <li><strong>Invisible process drift.</strong> When agents do the work, the institutional knowledge of <em>how</em> the work is done stops living in people's heads and starts living in prompts and tool configs nobody is versioning. That is a governance gap forming in real time.</li>
+</ul>
+
+<h2>The Leadership Frame: Design the Handoff, Not the Prompt</h2>
+<p>The organizations that get value from work agents,rather than a pile of plausible-looking, unreviewable output,will be the ones that redesign the workflow around the handoff. Three principles I am putting in front of leadership:</p>
+<ul>
+  <li><strong>Every agent-owned workflow needs a named human owner.</strong> Not a reviewer of every step,an accountable owner of the outcome, with a defined checkpoint where they inspect and approve before the artifact takes effect. The agent drafts the report; a human ships it.</li>
+  <li><strong>Scope access to the workflow, not the person.</strong> An agent reconciling invoices needs read access to three systems and write access to one,not the full permission set of the employee who launched it. Least-privilege was always good hygiene; with autonomous agents it is non-negotiable.</li>
+  <li><strong>Instrument the workflow like a production system.</strong> Log every tool call, every decision, every artifact the agent produced. When something goes wrong at hour two of a run, you need the trace, not a shrug. This is the same observability discipline any distributed system demands,agents just make skipping it more expensive.</li>
+</ul>
+
+<h2>Where This Actually Pays Off First</h2>
+<p>The early wins are not glamorous, and that is the point. The workflows worth handing to an agent first are the high-volume, well-bounded, low-ambiguity ones,invoice processing, data entry and reconciliation, customer triage, first-draft reporting from known sources. These are workflows where the steps are stable, the correctness criteria are checkable, and the cost of the current manual process is measurable. Start where you can verify the output cheaply and the downside of an error is contained. Prove the handoff pattern there before you point an agent at anything with real judgment or real consequences.</p>
+
+<h2>What To Do Monday</h2>
+<ul>
+  <li><strong>Pick one workflow, not one tool.</strong> Resist the "roll out ChatGPT Work to everyone" reflex. Choose a single bounded, high-volume workflow and redesign it around an agent, including the human checkpoint.</li>
+  <li><strong>Define the accountability line before you deploy.</strong> Write down who owns the outcome and where they approve. If you cannot answer that, you are not ready to hand the workflow over.</li>
+  <li><strong>Scope the access explicitly.</strong> Enumerate exactly which systems the agent reads and writes. Default-deny everything else.</li>
+  <li><strong>Turn on the trace from day one.</strong> You cannot govern what you cannot see, and you will want the logs the first time an unattended run goes sideways.</li>
+</ul>
+<p>The work agent is not coming,it shipped, twice, in one week. The competitive advantage will not go to whoever adopts it fastest. It will go to whoever redesigns their workflows around it most deliberately,with the handoff, the accountability, and the guardrails built in before the first agent runs unattended. The demo is easy. The org design is the work.</p>
+    `.trim(),
+  },
+  {
+    slug: 'eu-ai-act-article-50-august-2026-transparency-checklist',
+    title: 'The EU AI Act Bites on August 2: What Article 50 Actually Requires of You',
+    date: '2026-07-18',
+    readTime: '7 min read',
+    tags: ['AI Act', 'Compliance', 'Governance', 'Article 50', 'EU'],
+    description:
+      'On 2 August 2026, the EU AI Act\'s transparency obligations become enforceable,chatbot disclosure, synthetic-content marking, deepfake labelling,with fines up to €15M or 3% of global turnover. If you ship AI into the EU, here is the engineering checklist you have about two weeks to complete.',
+    content: `
+<h2>The Deadline Is Real, and It Is Close</h2>
+<p>On 2 August 2026, Article 50 of the EU AI Act,the transparency obligations,becomes enforceable. This is not a consultation, a guideline, or a future phase. It is binding law with teeth: non-compliance can draw fines up to €15 million or 3% of total worldwide annual turnover, whichever is higher, enforced by national market surveillance authorities in each member state. If you ship an AI feature that reaches users in the EU, this applies to you regardless of where your company is headquartered.</p>
+<p>I have written before about the compliance clock. This is the alarm going off. As of today, you have roughly two weeks. So let me skip the policy commentary and give you the engineering checklist.</p>
+
+<h2>What Article 50 Actually Requires</h2>
+<p>Article 50 is narrower and more concrete than the "AI Act" headlines suggest. It targets transparency,users knowing when they are dealing with AI or AI-generated content. Three obligations matter for most teams:</p>
+<ul>
+  <li><strong>Disclosure of AI interaction.</strong> If a person interacts with an AI system,a chatbot, a voice agent, a support assistant,they must be told they are interacting with AI, unless it is obvious to a reasonable person. "Obvious" is not a loophole to lean on; when in doubt, disclose.</li>
+  <li><strong>Marking of synthetic content.</strong> AI-generated or AI-manipulated audio, image, video, and text output must be marked as artificially generated in a machine-readable format,detectable by systems, not just a visible watermark. This is a technical requirement, not a UX one.</li>
+  <li><strong>Deepfake and public-interest text labelling.</strong> Content that constitutes a deepfake must be clearly labelled as artificially generated or manipulated. AI-generated text published to inform the public on matters of public interest carries a similar disclosure duty.</li>
+</ul>
+<p>These apply to systems built on general-purpose models,so "we just use an API from a big provider" does not transfer the obligation. If you deploy the system to EU users, you are the deployer on the hook.</p>
+
+<h2>What Is NOT Due August 2 (So You Prioritize Correctly)</h2>
+<p>Just as important as knowing what applies is knowing what does not,so you spend the two weeks on the right things. The EU pushed several deadlines back. The high-risk system obligations under Annex III,recruitment tools, credit scoring, education, law enforcement, border control, critical infrastructure,now face full compliance on 2 December 2027, not this August. AI embedded in regulated products under Annex I has until 2 August 2028. The GPAI model-provider obligations and the prohibited-practices penalties are already in force from earlier phases.</p>
+<p>The takeaway: if you were bracing for the full high-risk conformity regime in August, you have more runway than you feared. But the transparency obligations are live in two weeks, and they touch the most common AI feature of all,the chatbot,so nearly everyone has something to ship.</p>
+
+<h2>The Engineering Checklist</h2>
+<p>Here is what to verify and ship before August 2, framed as work your team can actually action:</p>
+<ul>
+  <li><strong>Audit every AI touchpoint that reaches EU users.</strong> Chatbots, voice agents, generated images, AI-written copy, synthetic media. If you cannot produce that inventory today, that is deliverable one,you cannot comply with what you have not enumerated.</li>
+  <li><strong>Ship clear AI-interaction disclosure.</strong> Every conversational surface needs an unambiguous "you are chatting with an AI assistant" notice at the point of interaction. This is the fastest, highest-coverage fix,do it first.</li>
+  <li><strong>Implement machine-readable content marking.</strong> For any AI-generated media, embed provenance metadata in a detectable format,C2PA content credentials are the emerging standard. A visible label alone does not satisfy the machine-readable requirement.</li>
+  <li><strong>Label deepfakes and public-interest AI text.</strong> Where you generate synthetic likenesses or publish AI-written content on public-interest topics, add clear, conspicuous labelling.</li>
+  <li><strong>Push provenance requirements to your vendors.</strong> If a third-party model or tool generates your content, confirm it supports machine-readable marking,or you inherit a gap you cannot close at your layer.</li>
+  <li><strong>Document your compliance posture.</strong> Keep a record of what you disclose, how you mark content, and the decisions behind "obvious" exemptions. When an authority asks, "we decided it was obvious" is far stronger with a written rationale behind it.</li>
+</ul>
+
+<h2>The Leadership Takeaway</h2>
+<p>The teams that will scramble in late July are the ones treating AI transparency as a legal problem that lands on the compliance team's desk. It is not,it is an engineering problem with a legal deadline. Disclosure notices, machine-readable provenance, and content labelling are things your engineers ship, not things your lawyers file. The fine,up to 3% of global turnover,is large enough that "we did not realize the chatbot needed a disclosure" is not a survivable sentence in a board meeting.</p>
+<p>The good news: the August obligations are the tractable ones. Disclosure and marking are bounded engineering work you can complete in two weeks if you start now. The high-risk regime that would genuinely reshape your product,Annex III,is more than a year out. So use the runway correctly: close the transparency gap now, cleanly and documented, and build the muscle for the harder compliance work coming in 2027. The clock is not a threat if you are already moving. It is only a threat if you are still deciding whether it applies to you. It does.</p>
+    `.trim(),
+  },
 ];

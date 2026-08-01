@@ -832,4 +832,142 @@ export const blogPosts: BlogPost[] = [
 <p>The good news: the August obligations are the tractable ones. Disclosure and marking are bounded engineering work you can complete in two weeks if you start now. The high-risk regime that would genuinely reshape your product,Annex III,is more than a year out. So use the runway correctly: close the transparency gap now, cleanly and documented, and build the muscle for the harder compliance work coming in 2027. The clock is not a threat if you are already moving. It is only a threat if you are still deciding whether it applies to you. It does.</p>
     `.trim(),
   },
+  {
+    slug: 'kimi-k3-open-weights-frontier-gap-license',
+    title: 'Kimi K3 Put 2.8 Trillion Parameters on Hugging Face. Read the License Before You Celebrate.',
+    date: '2026-07-28',
+    readTime: '7 min read',
+    tags: ['Open Weights', 'Kimi K3', 'Moonshot AI', 'Model Strategy', 'Licensing'],
+    description:
+      'Moonshot AI shipped the largest open-weight model ever built: 2.8T parameters, 104B active, 1M context, downloadable. The capability story is real. The licensing and serving-cost story is the one that decides whether it changes anything for your stack.',
+    content: `
+<h2>What Actually Shipped</h2>
+<p>On July 26, Moonshot AI published free public weights for Kimi K3, a day ahead of its own July 27 target. K3 is a roughly 2.8-trillion-parameter sparse Mixture-of-Experts model with about 104 billion active parameters per token, native vision, and a 1-million-token context window. MXFP4 quantization brings the download to roughly 1.4 TB. It is, by a wide margin, the largest open-weight model anyone has released. For scale: it is about 75% larger in total parameters than DeepSeek V4 Pro.</p>
+<p>On capability, Moonshot is refreshingly honest in its own framing. K3 sits behind Claude Fable 5 and GPT-5.6 Sol on overall performance, but beats everything else in its evaluation suite, including Claude Opus 4.8 and GPT-5.5, on coding and agentic benchmarks. Third-party reporting has it topping Fable 5 on at least one frontend coding arena.</p>
+<p>Strip out the leaderboard noise and the structural fact is this: the open-weight frontier is now roughly one release cycle behind the closed frontier, not one generation. That gap has been closing for two years. This is the release where it got small enough to change procurement conversations.</p>
+
+<h2>The License Is the Story Nobody Read</h2>
+<p>"Open weights" has quietly stopped meaning "open source," and K3 is the clearest example yet. The weights ship under a custom kimi-k3 license, not MIT or Apache. It gates commercial inference use above roughly $20 million a year in revenue.</p>
+<p>For most teams reading this, that threshold is irrelevant and the model is effectively free to deploy. For exactly the teams with the budget and the GPU fleet to actually serve a 2.8T model in production, it is a negotiation trigger. That is not an accident. The revenue gate is a business-model choice: give the ecosystem the weights, monetize the enterprises that can afford to run them.</p>
+<p>The engineering lesson is procedural, not political. Add a license-review step to your model evaluation checklist, at the same stage as latency and eval scores. "Open weights" now spans MIT, Apache, source-available with revenue gates, research-only, and geography-restricted terms. Downloading is not permission. If your model selection process treats "it is on Hugging Face" as the end of the legal question, you are accruing risk you have not priced.</p>
+
+<h2>The Serving Math Most Posts Skip</h2>
+<p>A 1.4 TB weight file is not a laptop artifact. Even at MXFP4, serving K3 yourself means a multi-node GPU deployment with the interconnect to match, plus the expertise to keep MoE routing efficient under real traffic. The all-in cost of a self-hosted K3 for a mid-size team will, in most cases, exceed the API bill it was supposed to replace.</p>
+<p>So be precise about why you would run open weights at this scale. There are three good reasons, and "it is free" is not one of them:</p>
+<ul>
+  <li><strong>Data residency and isolation.</strong> The inference never leaves your boundary. For regulated workloads, this is often the only argument that matters, and it is sufficient on its own.</li>
+  <li><strong>Continuity.</strong> A model you hold the weights to cannot be deprecated, re-priced, rate-limited, or made unavailable by an export decision. Anyone who lived through the Fable 5 availability scare in June already internalized this.</li>
+  <li><strong>Deep customization.</strong> Continued pretraining and heavy fine-tuning on proprietary data, not prompt engineering. If you are not doing weight-level work, you are paying a serving premium for nothing.</li>
+</ul>
+<p>If none of those three describe your situation, the correct move is to consume K3 through a hosted provider, and several offered day-zero hosting. You get the model's cost curve without the infrastructure bill.</p>
+
+<h2>What This Does to the Compute Story</h2>
+<p>The geopolitical subtext is hard to miss: a Chinese lab operating under U.S. compute export restrictions shipped the largest open model in the world. Restricting access to the best chips has not prevented frontier-adjacent training. It has channelled it toward architectures that get more out of constrained compute, and toward open release as a distribution strategy that closed labs cannot easily match.</p>
+<p>I wrote a few weeks back that your model is now a supply chain. K3 is the counter-move to that thesis playing out in real time. Open weights are how a lab without unlimited compute buys distribution and mindshare. Expect more of it, not less, and expect the licenses to keep getting more creative as labs try to give away reach while keeping revenue.</p>
+
+<h2>What To Do Monday</h2>
+<ul>
+  <li><strong>Add license review to model selection.</strong> Same gate as evals and latency. Record the license, the revenue threshold if any, and who signed off. Do this before a model reaches a production branch, not after.</li>
+  <li><strong>Benchmark K3 on your own tasks through a hosted endpoint first.</strong> Public benchmarks tell you almost nothing about your workload. A day of evaluation against your real traffic beats a month of leaderboard reading.</li>
+  <li><strong>Write down your actual reason for wanting open weights.</strong> Residency, continuity, or weight-level customization. If you cannot name one, you want a cheaper API, not a GPU cluster.</li>
+  <li><strong>Keep the provider abstraction honest.</strong> The reason this release costs you a day and not a quarter is that swapping models is a config change in your stack. If it is not, that is the real finding here, and it will keep costing you on every release.</li>
+</ul>
+<p>The headline is that open weights reached 2.8 trillion parameters. The decision-relevant facts are that the frontier gap is now one cycle, the license has a revenue gate, and self-serving costs more than most teams estimate. Frontier-class capability being downloadable changes your options. It does not, by itself, change your architecture.</p>
+    `.trim(),
+  },
+  {
+    slug: 'claude-opus-5-flat-price-curve-agentic-design',
+    title: 'Claude Opus 5 Doubled the Benchmark at the Same Price. The Flat Price Curve Is the Real Signal.',
+    date: '2026-07-29',
+    readTime: '7 min read',
+    tags: ['Claude Opus 5', 'Agentic AI', 'Model Economics', 'Architecture', 'Computer Use'],
+    description:
+      'Opus 5 landed on July 24 with more than double its predecessor on Frontier-Bench, 96% on SWE-bench Verified, and identical $5/$25 pricing. When capability climbs and price holds still, the workloads you deferred as too expensive quietly became viable.',
+    content: `
+<h2>The Numbers, Briefly</h2>
+<p>Anthropic shipped Claude Opus 5 on July 24, available same-day in the Claude apps, the API as <code>claude-opus-5</code>, and the major cloud platforms. The relevant specs: $5 per million input tokens and $25 per million output, unchanged from Opus 4.8. A 1M-token context window and 128K max output. Batch API at half price. Cache reads at $0.50 per MTok. An optional fast mode running roughly 2.5x default speed at $10/$50.</p>
+<p>On capability: more than double Opus 4.8's score on Frontier-Bench v0.1, 96.0% on SWE-bench Verified, 79.2% on SWE-bench Pro, roughly 3x the next-best model on ARC-AGI 3, and a result on OSWorld 2.0 that beats Fable 5's best at about a third of the cost.</p>
+<p>Any one of those is a good release. Together with the unchanged price, they describe something more useful than a leaderboard move.</p>
+
+<h2>Why a Flat Price Curve Matters More Than the Benchmark</h2>
+<p>We have spent 2026 watching a price war. GPT-5.5 at $1.50, subsidized challengers, cheap tiers beating expensive ones on agentic work. In that context it is easy to read "same price as last time" as standing still. It is the opposite.</p>
+<p>Cost per unit of capability is what actually governs your architecture, and it just dropped hard without a single line of your pricing logic changing. Concretely, every workload you evaluated in the last six months and shelved with "the model is good enough but the token bill does not work" deserves re-evaluation this week. Not because the price fell, but because the same spend now buys materially more, and because a task that used to need three attempts and a human review may now need one pass.</p>
+<p>That second effect is the one teams consistently miss. Per-token price is not per-task cost. A model with a higher success rate on the first attempt is cheaper at the same sticker price, because retries, fallback chains, and human correction all disappear from the ledger. The OSWorld result makes the point in the other direction: matching a more expensive model's output at a third of the cost is a per-task economics story, not a per-token one.</p>
+
+<h2>Computer Use Crosses From Demo to Default</h2>
+<p>OSWorld measures agents operating real desktop applications. Opus 5 beating Fable 5's best result at a third of the cost, arriving weeks after GPT-5.4 shipped native computer use, means the frontier labs have converged: driving a GUI is now a baseline capability, not a differentiating demo.</p>
+<p>For engineering teams, that redraws the integration boundary. The last decade of automation strategy assumed that a system without an API was a system you could not automate cheaply. That assumption is expiring. The legacy internal tool, the vendor portal with no integration story, the desktop application nobody will ever modernize, these are now automatable at a cost that survives a business case.</p>
+<p>It also redraws the security boundary, and this is where I would slow down. An agent with computer use has the effective permissions of whatever session it drives. Every governance argument I made about unattended work agents applies here with less abstraction: scope access to the workflow rather than the person, run in an isolated environment, log every action as a trace you can replay, and define the human checkpoint before you deploy rather than after the first bad run.</p>
+
+<h2>Design Implications for Agentic Systems</h2>
+<p>A model that is both stronger and same-priced changes concrete design choices, not just budgets:</p>
+<ul>
+  <li><strong>Revisit your routing tiers.</strong> Most production stacks route cheap tasks to a small model and hard ones to a frontier model. When frontier capability per dollar jumps, the boundary moves. If your routing thresholds were tuned six months ago, they are now wrong in a direction that costs you quality.</li>
+  <li><strong>Reconsider decomposition.</strong> Multi-step decomposition is partly a workaround for models that cannot hold a long task. At 1M context and this success rate, some of your carefully chained sub-agents are now one call, with less orchestration surface to fail.</li>
+  <li><strong>Use fast mode as a latency lever, not a default.</strong> 2.5x speed at 2x price is an excellent trade for interactive surfaces where users are waiting, and pure waste for batch pipelines where nobody is. Make it a per-surface decision.</li>
+  <li><strong>Push everything you can into the Batch API.</strong> Half price for anything not user-facing. Evals, backfills, nightly enrichment, document processing. Teams underuse this consistently.</li>
+  <li><strong>Audit your prompt caching.</strong> At $0.50 per MTok for cache reads against $5 for fresh input, a stable system prompt and tool schema that you are not caching is a straight 10x overpay on a large share of your tokens.</li>
+</ul>
+
+<h2>The Cadence Problem</h2>
+<p>Opus 5 landed inside a week that also brought Kimi K3, three Qwen releases in 72 hours, Google's Gemini 3.6 Flash trio, and more. Seven notable models from five vendors in seven days. That cadence is now the baseline, and it has an organizational implication that matters more than any single release.</p>
+<p>You cannot re-architect per release. What you can do is make evaluation cheap. The teams handling this well have a standing eval suite built on their own traffic, a provider abstraction where swapping a model is a config change, and a scheduled cadence, monthly is plenty, for re-running the suite against whatever is new. Everyone else is either chasing every announcement or ignoring all of them, and both are expensive.</p>
+
+<h2>What To Do Monday</h2>
+<ul>
+  <li><strong>Re-run your eval suite against Opus 5.</strong> If you do not have one built on your own traffic, that is the actual task this week, and it pays back on every future release.</li>
+  <li><strong>Pull up the workloads you shelved on cost.</strong> Re-price them at the new capability-per-dollar. Some of them are now live projects.</li>
+  <li><strong>Retune your routing thresholds.</strong> Cheap-tier defaults set six months ago are silently costing you quality on tasks the frontier tier now handles at defensible cost.</li>
+  <li><strong>Check caching and batching coverage before you optimize anything else.</strong> These are the two largest unforced token overspends in most production stacks, and neither requires a model change.</li>
+</ul>
+<p>The benchmark doubling will get the headlines. The unchanged price tag is what changes your roadmap. When capability climbs and cost holds, the constraint that shaped your architecture quietly stopped applying, and the teams that notice first get a quarter of head start on the ones still reading the leaderboard.</p>
+    `.trim(),
+  },
+  {
+    slug: 'eu-dma-android-ai-assistants-distribution-unbundled',
+    title: 'The EU Just Unbundled the Assistant From the Phone. Distribution Is No Longer a Moat You Can Buy.',
+    date: '2026-07-30',
+    readTime: '7 min read',
+    tags: ['DMA', 'Regulation', 'Distribution', 'Android', 'AI Strategy'],
+    description:
+      'On July 16 the European Commission ordered Google to open 11 Android features to rival AI assistants and to share search data with competitors. Hey Google stops being a privileged phrase. Here is what a contestable assistant layer means for anyone building on top of it.',
+    content: `
+<h2>What the Commission Actually Ordered</h2>
+<p>On July 16, 2026, the European Commission issued two legally binding decisions under the Digital Markets Act. Google must open 11 Android features to rival AI assistants, and must share search data with eligible competing AI developers.</p>
+<p>The most consequential detail is the hotword. Users must be able to activate a third-party assistant by voice in a manner equivalent to "Hey Google." That single requirement converts the assistant from a property of the operating system into a slot the user fills.</p>
+<p>The timelines are long, and worth holding precisely, because strategy built on the wrong date is just anxiety. Most Android changes must ship with Android 18 or by August 1, 2027 at the latest. Concurrent hotword detection has until Android 19, or August 1, 2028. Search data sharing begins in January 2027, and explicitly excludes Google's ranking algorithms and any identifiable user search history.</p>
+
+<h2>The Pattern: Two Platforms, Same Direction, Different Reasons</h2>
+<p>Six weeks ago at WWDC, Apple made AI providers swappable in its own stack and I argued distribution had become the new moat. This ruling completes the picture from the other side. Apple unbundled the model by choice, as a commercial strategy. Google is being ordered to unbundle the assistant by a regulator.</p>
+<p>Different mechanisms, same outcome. On both of the platforms that reach essentially every consumer on earth, the assistant layer is becoming contestable. Owning the operating system is no longer sufficient to own the interface through which users reach AI.</p>
+<p>If you were building a strategy on the assumption that the default assistant wins by inertia, that assumption now has an expiry date on it, in Europe at least. And regulatory design has a way of leaking across borders, because maintaining a separate architecture for one large market is more expensive than shipping the open one everywhere.</p>
+
+<h2>What Becomes Possible</h2>
+<p>Full Android feature access for a third-party assistant is a bigger change than a settings toggle. An assistant that can be voice-invoked and reach device capabilities is not a chat app you open. It is an ambient layer that can act.</p>
+<p>The near-term consequences worth planning around:</p>
+<ul>
+  <li><strong>Voice becomes a real entry point again, for someone other than the platform owner.</strong> Assistants that were app-shaped can become always-available. Whoever wins the hotword wins a habit, and habits are stickier than benchmarks.</li>
+  <li><strong>The mobile assistant and the computer-use agent converge.</strong> Frontier models can already drive desktop GUIs. Grant the same class of model device-level access on a phone and "operate the app for me" stops being an integration project.</li>
+  <li><strong>Search data sharing lowers a genuine barrier.</strong> Not the algorithm, but query distribution and behavioral signal at scale, is one of the assets challengers could not buy at any price. Handing it to eligible competitors from January 2027 narrows a structural advantage.</li>
+</ul>
+
+<h2>What This Means If You Are Building on Top</h2>
+<p>Most engineers reading this are not Google, Anthropic, or OpenAI. You are building products that will be reached through whichever assistant a user picks. That is the position to plan from.</p>
+<p>The strategic shift is that assistant-mediated access becomes a channel you have to design for, the way mobile web became a channel in 2010 and SEO became one before that. If a user's chosen assistant can operate your product on their behalf, then your product's surface is no longer only the UI you designed. It is also whatever an agent can discover and drive.</p>
+<p>That is exactly the problem MCP was built for. I argued in May that MCP had become the universal glue of the agentic stack. A regulatory regime that guarantees multiple assistants have equal device access makes a vendor-neutral tool protocol substantially more valuable. If your capabilities are exposed as an MCP server, any compliant assistant can use them. If they are exposed as a bespoke integration with one platform's assistant, you have built for the world that just got unbundled.</p>
+
+<h2>The Honest Caveats</h2>
+<p>Two things to keep in view. First, this is Europe. The DMA binds behavior in the EU market, and a global rollout is a Google decision, not a legal requirement. Plan for the EU as certain and the rest as likely-but-later.</p>
+<p>Second, the dates are 2027 and 2028, not next quarter. Nothing in your roadmap needs to move this month because of this ruling. What should move is your default assumptions: stop designing as though one assistant per platform is a permanent fact, and stop treating deep integration with a single platform assistant as a durable advantage.</p>
+
+<h2>What To Do Monday</h2>
+<ul>
+  <li><strong>Inventory your platform-assistant dependencies.</strong> Anything coupled to one vendor's assistant is now on a clock. Know what would need to change if users routinely arrived through a different one.</li>
+  <li><strong>Expose your core capabilities over MCP.</strong> The cheapest hedge against a multi-assistant world is a tool interface that is not specific to any assistant. You likely want this for internal agents regardless.</li>
+  <li><strong>Design for agent-mediated access, not just human UI.</strong> Assume something will operate your product on a user's behalf. Structured, documented, permission-scoped entry points, not scraped screens.</li>
+  <li><strong>Track the January 2027 search data provision if discovery matters to you.</strong> A new class of competitor with real query signal changes the discovery landscape for anyone who depends on it.</li>
+</ul>
+<p>The pattern across WWDC and this ruling is consistent, and it is the thing to carry forward: the layers of the AI stack are being pried apart, one by commercial choice and one by regulatory order. Model, assistant, and device are separating into components a user can mix. Products designed for a bundled world will need rebuilding. Products designed as capabilities that any agent can reach are already positioned for the one that is arriving.</p>
+    `.trim(),
+  },
 ];

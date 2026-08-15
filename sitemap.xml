@@ -215,4 +215,19 @@
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://nekhabose.com/blog/openai-astra-math-proofs-verification-is-the-bottleneck</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://nekhabose.com/blog/qwen-38-max-benchmark-tables-workload-shape</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://nekhabose.com/blog/darpa-venom-f16-staged-autonomy-agent-rollout</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
 </urlset>
